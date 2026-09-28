@@ -3,386 +3,239 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Arrow Investigations — Investigation Report</title>
+<title>Arrow Investigations | Report Portal</title>
 <style>
-:root{--navy:#17365d;--blue:#1f4e78;--border:#9aa7b3;--bg:#f4f6f8;--white:#fff}
-*{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#111}
-header{background:var(--navy);color:#fff;padding:18px 24px;position:sticky;top:0;z-index:10;box-shadow:0 2px 8px #0002}
-header .brand{font-size:20px;font-weight:700} header small{opacity:.9}
-main{max-width:1100px;margin:24px auto;padding:0 16px}.paper{background:#fff;padding:28px;box-shadow:0 2px 12px #0001;margin-bottom:20px}
-.letterhead{text-align:center;border-bottom:2px solid #111;padding-bottom:12px;margin-bottom:16px}.letterhead h1{margin:0;font-size:22px}.letterhead p{margin:4px 0;font-size:13px}
-.notice{text-align:center;font-weight:bold;margin:12px 0}.to{line-height:1.55;margin:12px 0}.subject{font-weight:bold;margin:18px 0}
-h2{font-size:15px;background:var(--navy);color:#fff;padding:8px 10px;margin:20px 0 0}
-table.form{width:100%;border-collapse:collapse;table-layout:fixed;margin-bottom:12px} .form th,.form td{border:1px solid var(--border);padding:6px;vertical-align:top;font-size:12px}
-.form th{background:#e9eef4;text-align:center}.label{font-weight:600;background:#f6f7f8;width:32%}
-input,textarea,select{width:100%;font:inherit;border:1px solid #b8c1ca;border-radius:3px;padding:7px;background:#fff}
-textarea{min-height:62px;resize:vertical}.wide textarea{min-height:100px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.card{border:1px solid var(--border);padding:10px}.card h3{margin:0 0 8px;font-size:13px;color:var(--navy)}
-.actions{display:flex;gap:10px;flex-wrap:wrap;position:sticky;bottom:0;background:#fff;padding:12px 0;border-top:1px solid #ddd}
-button{border:0;border-radius:5px;padding:11px 16px;font-weight:700;cursor:pointer}.primary{background:var(--navy);color:#fff}.secondary{background:#e8edf2;color:#111}
-.note{font-size:12px;color:#555;margin:6px 0}.req{color:#b00020}
-
-#loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,#17365d,#1f4e78)}
-.login-card{width:100%;max-width:390px;background:#fff;border-radius:10px;padding:30px;box-shadow:0 12px 35px #0004}
-.login-card h1{margin:0 0 6px;text-align:center;color:#17365d;font-size:24px}.login-card p{text-align:center;color:#666;margin:0 0 22px;font-size:13px}
-.login-card label{display:block;font-weight:700;font-size:13px;margin:12px 0 6px}.login-card input{padding:11px}.login-btn{width:100%;margin-top:18px;background:#17365d;color:#fff;padding:12px}
-.login-error{display:none;color:#b00020;background:#fdeaea;border:1px solid #efb5b5;padding:9px;border-radius:4px;margin-top:12px;font-size:13px;text-align:center}
-#app{display:none}
-.logout-btn{float:right;background:#fff;color:#17365d;padding:7px 11px;font-size:12px}
-@media(max-width:700px){.paper{padding:15px}.grid2{grid-template-columns:1fr}.form{font-size:11px}.form th,.form td{padding:4px}}
-@media print{header,.actions{display:none}.paper{box-shadow:none;margin:0}body{background:#fff}}
+:root{--navy:#17365d;--blue:#2563eb;--ink:#172033;--muted:#64748b;--line:#e2e8f0;--bg:#f5f7fb;--card:#fff;--success:#15803d;--danger:#b91c1c}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+button,input,textarea,select{font:inherit}.hidden{display:none!important}
+.login{min-height:100vh;display:grid;place-items:center;padding:24px;background:linear-gradient(135deg,#102a4a,#1f4e78)}
+.login-card{width:min(410px,100%);background:#fff;border-radius:18px;padding:34px;box-shadow:0 25px 70px #0004}.logo{font-weight:800;color:var(--navy);font-size:24px;text-align:center}.login-card p{text-align:center;color:var(--muted);font-size:13px}.login-card label{display:block;font-weight:700;font-size:13px;margin:16px 0 7px}.login-card input{width:100%;padding:12px;border:1px solid var(--line);border-radius:9px}.login-card button{width:100%;margin-top:20px;padding:12px;border:0;border-radius:9px;background:var(--navy);color:#fff;font-weight:800;cursor:pointer}.error{display:none;margin-top:12px;padding:10px;border-radius:8px;background:#fee2e2;color:var(--danger);font-size:13px}
+.app{display:none}.topbar{height:68px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:20}.brand{font-weight:850;color:var(--navy);letter-spacing:.2px}.brand small{display:block;color:var(--muted);font-size:11px;font-weight:500;margin-top:2px}.user-area{display:flex;align-items:center;gap:12px}.logout{border:1px solid var(--line);background:#fff;padding:8px 12px;border-radius:8px;cursor:pointer}
+.layout{display:grid;grid-template-columns:245px minmax(0,1fr);min-height:calc(100vh - 68px)}.sidebar{background:#fff;border-right:1px solid var(--line);padding:22px 14px;position:sticky;top:68px;height:calc(100vh - 68px);overflow:auto}.nav-title{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#94a3b8;padding:8px 10px}.nav-item{display:flex;gap:10px;align-items:center;width:100%;border:0;background:transparent;padding:10px;border-radius:9px;text-align:left;color:#475569;cursor:pointer;font-size:13px}.nav-item:hover,.nav-item.active{background:#eff6ff;color:var(--blue);font-weight:700}.main{padding:30px;max-width:1200px;width:100%;margin:auto}.page-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;margin-bottom:24px}.eyebrow{font-size:12px;color:var(--blue);font-weight:800;text-transform:uppercase;letter-spacing:.1em}.page-head h1{margin:4px 0 6px;font-size:30px}.page-head p{margin:0;color:var(--muted);font-size:14px}.progress{min-width:230px}.progress-label{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:6px}.bar{height:7px;background:#e2e8f0;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:var(--blue);width:0%;transition:.25s}
+.section{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:18px;overflow:hidden;scroll-margin-top:90px}.section-head{display:flex;align-items:center;gap:12px;padding:17px 20px;border-bottom:1px solid var(--line);cursor:pointer}.section-head .icon{width:34px;height:34px;display:grid;place-items:center;border-radius:9px;background:#eff6ff;color:var(--blue);font-weight:900}.section-head h2{font-size:15px;margin:0}.section-head p{margin:3px 0 0;color:var(--muted);font-size:12px}.chev{margin-left:auto;color:#94a3b8}.section-body{padding:20px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.field label{display:block;font-size:12px;font-weight:750;color:#334155;margin-bottom:6px}.field input,.field textarea,.field select{width:100%;border:1px solid #d8e0ea;border-radius:8px;background:#fff;padding:10px 11px;outline:none;color:#172033}.field textarea{min-height:90px;resize:vertical}.field input:focus,.field textarea:focus,.field select:focus{border-color:#93c5fd;box-shadow:0 0 0 3px #dbeafe}.full{grid-column:1/-1}.subhead{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#64748b;margin:18px 0 10px;font-weight:800}.vehicle-head{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:10px}.vehicle-title{padding:10px 12px;border-radius:8px;background:#f8fafc;font-size:12px;font-weight:800;color:#475569}.compare-row{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:12px;align-items:start;margin-bottom:10px}.compare-label{font-size:12px;font-weight:700;color:#475569;padding-top:10px}.rows{display:grid;gap:10px}.mini-table{width:100%;border-collapse:collapse;font-size:12px}.mini-table th,.mini-table td{border:1px solid var(--line);padding:8px}.mini-table th{background:#f8fafc;text-align:left}.actions{position:sticky;bottom:0;background:#ffffffee;backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:14px 0;display:flex;justify-content:flex-end;gap:10px;z-index:15}.btn{border:0;border-radius:9px;padding:11px 16px;font-weight:800;cursor:pointer}.btn.primary{background:var(--navy);color:#fff}.btn.secondary{background:#eef2f7;color:#334155}.btn.green{background:var(--success);color:#fff}.hint{font-size:11px;color:#94a3b8;margin-top:5px}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{display:none}.main{padding:18px}.page-head{display:block}.progress{margin-top:16px}.grid,.grid3{grid-template-columns:1fr}.compare-row{grid-template-columns:1fr}.compare-label{padding-top:0}.topbar{padding:0 15px}}
 </style>
 </head>
 <body>
-<div id="loginScreen">
+
+<div id="loginScreen" class="login">
   <div class="login-card">
-    <h1>ARROW INVESTIGATIONS</h1>
-    <p>Secure Investigation Report Portal</p>
-    <form id="loginForm" autocomplete="off">
-      <label for="loginUsername">Username</label>
-      <input id="loginUsername" type="text" autocomplete="username" required>
-      <label for="loginPassword">Password</label>
-      <input id="loginPassword" type="password" autocomplete="current-password" required>
-      <button class="login-btn" type="submit">LOGIN</button>
-      <div id="loginError" class="login-error">Invalid username or password.</div>
+    <div class="logo">ARROW INVESTIGATIONS</div>
+    <p>Investigation Report Portal</p>
+    <form id="loginForm">
+      <label>Username</label><input id="loginUsername" required autocomplete="username">
+      <label>Password</label><input id="loginPassword" type="password" required autocomplete="current-password">
+      <button type="submit">Sign in</button>
+      <div id="loginError" class="error">Invalid username or password.</div>
     </form>
   </div>
 </div>
-<div id="app">
-<header><button type="button" class="logout-btn" onclick="logout()">Logout</button><div class="brand">ARROW INVESTIGATIONS</div><small>Investigation Report Generator</small></header>
-<main>
+
+<div id="app" class="app">
+<header class="topbar">
+  <div class="brand">ARROW INVESTIGATIONS<small>Investigation Report Portal</small></div>
+  <div class="user-area"><span id="loggedUser" style="font-size:12px;color:#64748b"></span><button class="logout" onclick="logout()">Logout</button></div>
+</header>
+
+<div class="layout">
+<aside class="sidebar">
+  <div class="nav-title">Report sections</div>
+  <button class="nav-item active" data-target="report">01 · Report</button>
+  <button class="nav-item" data-target="policy">02 · Policy</button>
+  <button class="nav-item" data-target="vehicle">03 · Vehicles</button>
+  <button class="nav-item" data-target="accident">04 · Accident & FIR</button>
+  <button class="nav-item" data-target="driver">05 · Driver</button>
+  <button class="nav-item" data-target="injured">06 · Injured / Deceased</button>
+  <button class="nav-item" data-target="medical">07 · Medical</button>
+  <button class="nav-item" data-target="claimants">08 · Claimants</button>
+  <button class="nav-item" data-target="findings">09 · Findings</button>
+</aside>
+
+<main class="main">
+<div class="page-head">
+  <div><div class="eyebrow">New report</div><h1>Investigation Report</h1><p>Enter the case details below. The final Word document will use your existing investigation template.</p></div>
+  <div class="progress"><div class="progress-label"><span>Form completion</span><b id="progressText">0%</b></div><div class="bar"><i id="progressBar"></i></div></div>
+</div>
+
 <form id="reportForm">
-<div class="paper">
-<div class="letterhead">
-<h1>ARROW INVESTIGATIONS</h1>
-<p>MIG 113, Bharath Nagar Colony, Bharath Nagar, Hyderabad, Telangana – 500018.</p>
-<p>Mail ID: arrowinvestigations20@gmail.com &nbsp; | &nbsp; Contact no: +91 9000326191</p>
+
+<section class="section" id="report">
+<div class="section-head"><div class="icon">01</div><div><h2>Report information</h2><p>Case identification and submission details</p></div><div class="chev">⌃</div></div>
+<div class="section-body">
+<div class="grid">
+<div class="field"><label>File Number *</label><input name="file_no" required></div>
+<div class="field"><label>Claim Number *</label><input name="claim_no" required></div>
+<div class="field"><label>Date of Allotment</label><input name="date_allotment" type="date"></div>
+<div class="field"><label>Date of Report Submitted</label><input name="date_submitted" type="date"></div>
+<div class="field"><label>Case No</label><input name="case_no"></div>
+<div class="field"><label>MACT Name</label><input name="mact_name"></div>
+<div class="field"><label>Nature of Claim</label><input name="nature_claim"></div>
+<div class="field"><label>Case Title</label><input name="case_title"></div>
+<div class="field"><label>No. of Connected Cases</label><input name="connected_cases"></div>
+<div class="field"><label>Amount Claimed</label><input name="amount_claimed"></div>
+</div></div></section>
+
+<section class="section" id="policy">
+<div class="section-head"><div class="icon">02</div><div><h2>Policy details</h2><p>Insured and opposite vehicle policy information</p></div><div class="chev">⌃</div></div>
+<div class="section-body">
+<div class="vehicle-head"><div class="vehicle-title">INSURED VEHICLE</div><div class="vehicle-title">OPPOSITE VEHICLE</div></div>
+<div id="policyRows"></div>
+</div></section>
+
+<section class="section" id="vehicle">
+<div class="section-head"><div class="icon">03</div><div><h2>Vehicle details</h2><p>Registration, ownership, RC, fitness and identification</p></div><div class="chev">⌃</div></div>
+<div class="section-body"><div id="vehicleRows"></div>
+<div class="subhead">Permit details</div>
+<div class="grid">
+<div class="field"><label>Permit No</label><input name="permit_no"></div><div class="field"><label>Authorized State</label><input name="permit_state"></div>
+<div class="field"><label>Period of Validity</label><input name="permit_validity"></div><div class="field"><label>Permit Verified or Not</label><select name="permit_verified"><option></option><option>Yes</option><option>No</option><option>Not Applicable</option></select></div>
+</div></div></section>
+
+<section class="section" id="accident">
+<div class="section-head"><div class="icon">04</div><div><h2>Accident & FIR</h2><p>Accident circumstances, police records and charge sheet</p></div><div class="chev">⌃</div></div>
+<div class="section-body"><div class="grid">
+<div class="field"><label>Date of Accident</label><input name="accident_date" type="date"></div><div class="field"><label>Time</label><input name="accident_time" type="time"></div>
+<div class="field"><label>Place of Accident</label><input name="accident_place"></div><div class="field"><label>Distance from PS</label><input name="distance_ps"></div>
+<div class="field"><label>Date of Lodging FIR</label><input name="fir_date" type="date"></div><div class="field"><label>FIR Time</label><input name="fir_time" type="time"></div>
+<div class="field"><label>Informer & Telephone</label><input name="informer"></div><div class="field"><label>Informer's Relation with Claimant</label><input name="informer_relation"></div>
+<div class="field"><label>Vehicle No. as per FIR</label><input name="vehicle_fir"></div><div class="field"><label>Charge Sheet Filed u/s</label><input name="charge_sheet"></div>
+<div class="field full"><label>Delay in Lodging FIR / Explanation</label><textarea name="fir_delay"></textarea></div>
+<div class="field full"><label>PS, FIR No. & Sections</label><textarea name="fir_details"></textarea></div>
+<div class="field full"><label>Is the vehicle identified in the FIR as offending vehicle?</label><textarea name="fir_offending_vehicle"></textarea></div>
+<div class="field full"><label>Involvement of Any Other Vehicle</label><textarea name="other_vehicle"></textarea></div>
+<div class="field full"><label>Contribution from Other Vehicle / Contributory</label><textarea name="contributory"></textarea></div>
+<div class="field full"><label>First Admission to Nearest Hospital — date, time, name & address</label><textarea name="first_admission"></textarea></div>
+</div></div></section>
+
+<section class="section" id="driver">
+<div class="section-head"><div class="icon">05</div><div><h2>Driver details</h2><p>Driver identity, licence and authorization</p></div><div class="chev">⌃</div></div>
+<div class="section-body"><div class="grid" id="driverFields"></div></div></section>
+
+<section class="section" id="injured">
+<div class="section-head"><div class="icon">06</div><div><h2>Deceased / injured details</h2><p>Personal, employment and income information</p></div><div class="chev">⌃</div></div>
+<div class="section-body"><div class="grid" id="injuredFields"></div></div></section>
+
+<section class="section" id="medical">
+<div class="section-head"><div class="icon">07</div><div><h2>Medical & hospitalization</h2><p>Hospital, MLC, PMR and treatment information</p></div><div class="chev">⌃</div></div>
+<div class="section-body">
+<div class="grid" id="medicalFields"></div>
+<div class="subhead">Hospitalization records</div>
+<div id="hospitalRows"></div>
+<div class="subhead">Disability / compromise</div>
+<div class="grid">
+<div class="field"><label>% of Disability Assessed</label><input name="disability_percent"></div>
+<div class="field"><label>Disability issued by Board / Single Doctor</label><input name="disability_issued"></div>
+<div class="field"><label>Whether fit for compromise</label><select name="fit_compromise"><option></option><option>Yes</option><option>No</option></select></div>
+<div class="field"><label>Defense if not fit for compromise</label><textarea name="defense_compromise"></textarea></div>
 </div>
-<div class="notice">WITHOUT PREJUDICE</div>
-<div class="grid2">
-<div><label>Date <input name="report_date" type="date"></label></div>
-<div></div>
-</div>
-<div class="to"><b>To,</b><br>The Manager - TP Legal Claims<br>ICICI Lombard General Insurance Company ltd.<br>Hyderabad, Telangana.</div>
-<div class="subject">Subject: INVESTIGATION REPORT</div>
+</div></section>
 
-<table class="form">
-<tr><td class="label">File No</td><td><input name="file_no"></td><td class="label">Claim No</td><td><input name="claim_no"></td></tr>
-<tr><td class="label">Date of Allotment</td><td><input name="date_allotment" type="date"></td><td class="label">Date of report submitted</td><td><input name="date_submitted" type="date"></td></tr>
-</table>
+<section class="section" id="claimants">
+<div class="section-head"><div class="icon">08</div><div><h2>Claimants</h2><p>Parents, unmarried sisters and other claimants</p></div><div class="chev">⌃</div></div>
+<div class="section-body"><div id="claimantRows"></div></div></section>
 
-<h2>REG: INVESTIGATION REPORT</h2>
-<table class="form">
-<tr><td class="label">CASE NO</td><td><input name="case_no"></td></tr>
-<tr><td class="label">MACT NAME</td><td><input name="mact_name"></td></tr>
-<tr><td class="label">NATURE OF CLAIM</td><td><input name="nature_claim"></td></tr>
-<tr><td class="label">CASE TITLE</td><td><input name="case_title"></td></tr>
-<tr><td class="label">NO. OF CONNECTED CASESS</td><td><input name="connected_cases"></td></tr>
-<tr><td class="label">AMOUNT CLAIMED</td><td><input name="amount_claimed"></td></tr>
-</table>
-
-<h2>POLICY DETAILS</h2>
-<table class="form">
-<tr><th>PARTICULARS</th><th>INSURED VEHICLE</th><th>OPPOSITE VEHICLE</th></tr>
-<tr><td class="label">Name of the Insurer</td><td><input name="policy_insurer_insured"></td><td><input name="policy_insurer_opposite"></td></tr>
-<tr><td class="label">Registration No. and Vehicle Make</td><td><input name="policy_reg_insured"></td><td><input name="policy_reg_opposite"></td></tr>
-<tr><td class="label">Name of the Insured</td><td><input name="policy_name_insured"></td><td><input name="policy_name_opposite"></td></tr>
-<tr><td class="label">Insured Contact No.</td><td><input name="policy_contact_insured"></td><td><input name="policy_contact_opposite"></td></tr>
-<tr><td class="label">Policy No</td><td><input name="policy_no_insured"></td><td><input name="policy_no_opposite"></td></tr>
-<tr><td class="label">Period of Insurance</td><td><input name="policy_period_insured"></td><td><input name="policy_period_opposite"></td></tr>
-<tr><td class="label">Date of Accident</td><td><input name="policy_accident_insured" type="date"></td><td><input name="policy_accident_opposite" type="date"></td></tr>
-</table>
-
-<h2>VEHICLE DETAILS</h2>
-<table class="form">
-<tr><th>PARTICULARS</th><th>INSURED VEHICLE</th><th>OPPOSITE VEHICLE</th></tr>
-<tr><td class="label">Reg. No./Make</td><td><input name="vehicle_reg_insured"></td><td><input name="vehicle_reg_opposite"></td></tr>
-<tr><td class="label">Name of the Owner & Address</td><td><textarea name="vehicle_owner_insured"></textarea></td><td><textarea name="vehicle_owner_opposite"></textarea></td></tr>
-<tr><td class="label">Owner Contact No.</td><td><input name="vehicle_owner_contact_insured"></td><td><input name="vehicle_owner_contact_opposite"></td></tr>
-<tr><td class="label">RC transferred to</td><td><input name="rc_transfer_insured"></td><td><input name="rc_transfer_opposite"></td></tr>
-<tr><td class="label">Date of RC transfer</td><td><input name="rc_date_insured" type="date"></td><td><input name="rc_date_opposite" type="date"></td></tr>
-<tr><td class="label">Carrying / Seating Capacity</td><td><input name="capacity_insured"></td><td><input name="capacity_opposite"></td></tr>
-<tr><td class="label">Date of Reg</td><td><input name="reg_date_insured" type="date"></td><td><input name="reg_date_opposite" type="date"></td></tr>
-<tr><td class="label">Fitness Certificate/validity</td><td><input name="fitness_insured"></td><td><input name="fitness_opposite"></td></tr>
-<tr><td class="label">Eng. No.</td><td><input name="engine_insured"></td><td><input name="engine_opposite"></td></tr>
-<tr><td class="label">Chassis. No.</td><td><input name="chassis_insured"></td><td><input name="chassis_opposite"></td></tr>
-</table>
-
-<h2>PERMIT DETAILS</h2>
-<table class="form">
-<tr><td class="label">Permit No</td><td><input name="permit_no"></td></tr>
-<tr><td class="label">Authorized State</td><td><input name="permit_state"></td></tr>
-<tr><td class="label">Period of validity</td><td><input name="permit_validity"></td></tr>
-<tr><td class="label">Permit Verified or Not</td><td><select name="permit_verified"><option></option><option>Yes</option><option>No</option><option>Not Applicable</option></select></td></tr>
-</table>
-
-<h2>ACCIDENT DETAILS</h2>
-<table class="form">
-<tr><td class="label">Date of accident</td><td><input name="accident_date" type="date"></td><td class="label">Time</td><td><input name="accident_time" type="time"></td></tr>
-<tr><td class="label">Place of Accident</td><td><input name="accident_place"></td><td class="label">Distance from PS</td><td><input name="distance_ps"></td></tr>
-<tr><td class="label">Date of Lodging FIR</td><td><input name="fir_date" type="date"></td><td class="label">Time</td><td><input name="fir_time" type="time"></td></tr>
-<tr><td class="label">No. of days delay and Explanation for delay in lodging FIR</td><td><textarea name="fir_delay"></textarea></td><td class="label">PS & FIR No. & Sections</td><td><textarea name="fir_details"></textarea></td></tr>
-<tr><td class="label">Name of Informer & Tel. No.</td><td colspan="3"><input name="informer"></td></tr>
-<tr><td class="label">Relation of the Informer with the claimant</td><td colspan="3"><input name="informer_relation"></td></tr>
-<tr><td class="label">Vehicle No. as per FIR</td><td colspan="3"><input name="vehicle_fir"></td></tr>
-<tr><td class="label">Is the vehicle identified in the FIR as offending vehicle (if yes mentioned the Reg. No.)</td><td colspan="3"><textarea name="fir_offending_vehicle"></textarea></td></tr>
-<tr><td class="label">Involvement of any other vehicle</td><td colspan="3"><textarea name="other_vehicle"></textarea></td></tr>
-<tr><td class="label">Any contribution from other vehicle attributed to the accident-(contributory)</td><td colspan="3"><textarea name="contributory"></textarea></td></tr>
-<tr><td class="label">Charge Sheet Filed u/s</td><td colspan="3"><input name="charge_sheet"></td></tr>
-<tr><td class="label">Date & Time of first admission to nearest hospital (name & address of the hospital)</td><td colspan="3"><textarea name="first_admission"></textarea></td></tr>
-</table>
-
-<h2>DRIVER DETAILS</h2>
-<table class="form" id="driverTable"></table>
-
-<h2>DECEASED / INJURED DETAILS</h2>
-<table class="form" id="injuredTable"></table>
-
-<h2>For Injury / Death case</h2>
-<table class="form" id="medicalTable"></table>
-
-<h2>Details of all claimants including parents and unmarried sister of the deceased: -</h2>
-<table class="form" id="claimantsTable"></table>
-
-<h2>Medical / Hospitalization Details</h2>
-<table class="form" id="hospitalTable"></table>
-
-<h2>Disability / Compromise</h2>
-<table class="form">
-<tr><td class="label">% of Disability Assessed</td><td><input name="disability_percent"></td></tr>
-<tr><td class="label">Disability issued by the Board/Single Doctor</td><td><input name="disability_issued"></td></tr>
-<tr><td class="label">Whether fit for compromise</td><td><select name="fit_compromise"><option></option><option>Yes</option><option>No</option></select></td></tr>
-<tr><td class="label">What is the defense if not fit for compromise</td><td><textarea name="defense_compromise"></textarea></td></tr>
-</table>
-
-<h2>Brief Observations: -</h2>
-<table class="form">
-<tr><td class="label">1. Accident details as per petition:</td><td><textarea name="obs_petition"></textarea></td></tr>
-<tr><td class="label">2. Accident Details per FIR:</td><td><textarea name="obs_fir"></textarea></td></tr>
-<tr><td class="label">3. Version of Charge Sheet:</td><td><textarea name="obs_charge_sheet"></textarea></td></tr>
-<tr><td class="label">4. Version of Petitioner:</td><td><textarea name="obs_petitioner"></textarea></td></tr>
-<tr><td class="label">5. Version of Insured:</td><td><textarea name="obs_insured"></textarea></td></tr>
-<tr><td class="label">6. Version of Driver:</td><td><textarea name="obs_driver"></textarea></td></tr>
-<tr><td class="label">7. Discrepancies in 161 statements if any:</td><td><textarea name="obs_161"></textarea></td></tr>
-<tr><td class="label">Findings / Observations:</td><td><textarea name="findings"></textarea></td></tr>
-<tr><td class="label">Contestable Ground:</td><td><textarea name="contestable_ground"></textarea></td></tr>
-<tr><td class="label">Contestable Ground Evidence:</td><td><textarea name="contestable_evidence"></textarea></td></tr>
-<tr><td class="label">Fraud Ground:</td><td><textarea name="fraud_ground"></textarea></td></tr>
-</table>
+<section class="section" id="findings">
+<div class="section-head"><div class="icon">09</div><div><h2>Investigation findings</h2><p>Versions, discrepancies, observations and grounds</p></div><div class="chev">⌃</div></div>
+<div class="section-body"><div class="grid">
+<div class="field full"><label>Accident Details as per Petition</label><textarea name="obs_petition"></textarea></div>
+<div class="field full"><label>Accident Details per FIR</label><textarea name="obs_fir"></textarea></div>
+<div class="field full"><label>Version of Charge Sheet</label><textarea name="obs_charge_sheet"></textarea></div>
+<div class="field full"><label>Version of Petitioner</label><textarea name="obs_petitioner"></textarea></div>
+<div class="field full"><label>Version of Insured</label><textarea name="obs_insured"></textarea></div>
+<div class="field full"><label>Version of Driver</label><textarea name="obs_driver"></textarea></div>
+<div class="field full"><label>Discrepancies in 161 Statements, if any</label><textarea name="obs_161"></textarea></div>
+<div class="field full"><label>Findings / Observations</label><textarea name="findings"></textarea></div>
+<div class="field full"><label>Contestable Ground</label><textarea name="contestable_ground"></textarea></div>
+<div class="field full"><label>Contestable Ground Evidence</label><textarea name="contestable_evidence"></textarea></div>
+<div class="field full"><label>Fraud Ground</label><textarea name="fraud_ground"></textarea></div>
+</div></div></section>
 
 <div class="actions">
-<button type="button" class="primary" onclick="generateDocx()">Generate Word Document (.docx)</button>
-<button type="button" class="secondary" onclick="window.print()">Print / Save as PDF</button>
-<button type="reset" class="secondary">Clear Form</button>
-</div>
-<p class="note">The Word document is generated in your browser. No form data is sent to a server by this page.</p>
+<button type="button" class="btn secondary" onclick="document.getElementById('reportForm').reset();updateProgress()">Clear Form</button>
+<button type="button" class="btn green" onclick="generateDocx()">Generate Word Report</button>
 </div>
 </form>
 </main>
 </div>
+</div>
 
 <script>
-// ===== STATIC USERNAME / PASSWORD =====
-// Edit these entries directly in this HTML file.
-const STATIC_USERS = [
-  { username: "admin", password: "Arrow@123" },
-  { username: "investigator1", password: "Arrow@456" },
-  { username: "investigator2", password: "Arrow@789" }
+const STATIC_USERS=[
+ {username:"admin",password:"Arrow@123"},
+ {username:"investigator1",password:"Arrow@456"},
+ {username:"investigator2",password:"Arrow@789"}
 ];
 
-function showApp(){
-  document.getElementById("loginScreen").style.display = "none";
-  document.getElementById("app").style.display = "block";
-}
-function showLogin(){
-  document.getElementById("loginScreen").style.display = "flex";
-  document.getElementById("app").style.display = "none";
-}
-function logout(){
-  sessionStorage.removeItem("arrowLoggedIn");
-  document.getElementById("loginUsername").value = "";
-  document.getElementById("loginPassword").value = "";
-  document.getElementById("loginError").style.display = "none";
-  showLogin();
-}
+function showApp(user){document.getElementById("loginScreen").style.display="none";document.getElementById("app").style.display="block";document.getElementById("loggedUser").textContent=user||sessionStorage.getItem("arrowLoggedIn")||""}
+function logout(){sessionStorage.removeItem("arrowLoggedIn");document.getElementById("loginScreen").style.display="grid";document.getElementById("app").style.display="none"}
+document.getElementById("loginForm").addEventListener("submit",e=>{e.preventDefault();let u=loginUsername.value.trim(),p=loginPassword.value;if(STATIC_USERS.some(x=>x.username===u&&x.password===p)){sessionStorage.setItem("arrowLoggedIn",u);loginError.style.display="none";showApp(u)}else loginError.style.display="block"});
+if(sessionStorage.getItem("arrowLoggedIn"))showApp();
 
-document.getElementById("loginForm").addEventListener("submit", function(e){
-  e.preventDefault();
-  const username = document.getElementById("loginUsername").value.trim();
-  const password = document.getElementById("loginPassword").value;
-  const valid = STATIC_USERS.some(u => u.username === username && u.password === password);
-  if(valid){
-    sessionStorage.setItem("arrowLoggedIn", username);
-    document.getElementById("loginError").style.display = "none";
-    showApp();
-  } else {
-    document.getElementById("loginError").style.display = "block";
-  }
-});
+const policy=[
+["Name of the Insurer","policy_insurer_insured","policy_insurer_opposite"],["Registration No. and Vehicle Make","policy_reg_insured","policy_reg_opposite"],
+["Name of the Insured","policy_name_insured","policy_name_opposite"],["Insured Contact No.","policy_contact_insured","policy_contact_opposite"],
+["Policy No","policy_no_insured","policy_no_opposite"],["Period of Insurance","policy_period_insured","policy_period_opposite"],["Date of Accident","policy_accident_insured","policy_accident_opposite"]];
+const vehicle=[
+["Reg. No./Make","vehicle_reg_insured","vehicle_reg_opposite"],["Name of the Owner & Address","vehicle_owner_insured","vehicle_owner_opposite"],
+["Owner Contact No.","vehicle_owner_contact_insured","vehicle_owner_contact_opposite"],["RC transferred to","rc_transfer_insured","rc_transfer_opposite"],
+["Date of RC transfer","rc_date_insured","rc_date_opposite"],["Carrying / Seating Capacity","capacity_insured","capacity_opposite"],
+["Date of Reg","reg_date_insured","reg_date_opposite"],["Fitness Certificate/validity","fitness_insured","fitness_opposite"],
+["Eng. No.","engine_insured","engine_opposite"],["Chassis. No.","chassis_insured","chassis_opposite"]];
+const driver=[["Name of the Driver as per FIR","driver_fir"],["Name of the Driver as per CS","driver_cs"],["Driver Name as per DL","driver_dl"],["Driver contact No","driver_contact"],["DL extract as per RTO","dl_extract"],["Driver Date of Birth","driver_dob"],["DL No. & issuing authority","dl_no"],["Type of DL","dl_type"],["Authorize to Drive","authorize_drive"],["Period of DL (For Transport)","dl_transport"],["Period of DL (For Non-Transport)","dl_nontransport"]];
+const injured=[["Name of Deceased/Injured with Father’s Name","injured_name"],["Age (with age proof)","injured_age"],["Contact No.","injured_contact"],["Address (Permanent)","injured_address"],["Address if different from above","injured_alt_address"],["Monthly Income","monthly_income"],["ESI coverage / reimbursement of medical expenses","esi_coverage"],["Occupation","injured_occupation"],["Name & Address of employer with Phone No.","employer"],["Brief Statement of Employer about employment","employer_statement"],["Status of deceased / injured","injured_status"],["Employment on compassionate ground OR pension details","pension_details"]];
+const medical=[["Date of Hospitalization","hospitalization_date"],["Name of Hospital along with date of MLC","mlc_hospital"],["Nature of Injuries (as per MLC)","injuries"],["Date of Admission","admission_date"],["Date of Discharge","discharge_date"],["Medical Expenses","medical_expenses"],["Did the deceased succumb to injuries on the spot?","death_spot"],["PMR No. & Date","pmr_no_date"],["Hospital where PMR carried","pmr_hospital"],["Cause of Death as per PMR","death_cause"]];
 
-if(sessionStorage.getItem("arrowLoggedIn")){ showApp(); }
-</script>
-
-<script>
-/* Load the exact browser builds required for DOCX templating.
-   Docxtemplater requires both Docxtemplater and PizZip. */
-(function () {
-  const libraries = [
-    ["https://unpkg.com/docxtemplater@3.71.0/build/docxtemplater.js", "docxtemplater"],
-    ["https://unpkg.com/pizzip@3.2.0/dist/pizzip.js", "PizZip"],
-    ["https://unpkg.com/pizzip@3.2.0/dist/pizzip-utils.js", "PizZipUtils"]
-  ];
-  const fallback = [
-    ["https://cdn.jsdelivr.net/npm/docxtemplater@3.71.0/build/docxtemplater.js", "docxtemplater"],
-    ["https://cdn.jsdelivr.net/npm/pizzip@3.2.0/dist/pizzip.js", "PizZip"],
-    ["https://cdn.jsdelivr.net/npm/pizzip@3.2.0/dist/pizzip-utils.js", "PizZipUtils"]
-  ];
-  window.__wordLibrariesPromise = (async function loadAll() {
-    for (let i = 0; i < libraries.length; i++) {
-      const urls = [libraries[i][0], fallback[i][0]];
-      let loaded = false;
-      for (const src of urls) {
-        try {
-          await new Promise((resolve, reject) => {
-            const script = document.createElement("script");
-            script.src = src;
-            script.onload = resolve;
-            script.onerror = () => reject(new Error("Failed to load " + src));
-            document.head.appendChild(script);
-          });
-          loaded = true;
-          break;
-        } catch (e) {}
-      }
-      if (!loaded || !window[libraries[i][1]]) {
-        throw new Error("Could not load the Word document library: " + libraries[i][1]);
-      }
-    }
-    return true;
-  })();
-})();
-</script>
-<script>
-const driverFields=[
-["Name of the Driver as per FIR","driver_fir"],["Name of the Driver as per CS","driver_cs"],
-["Driver Name as per DL","driver_dl"],["Driver contact No","driver_contact"],
-["DL extract as per RTO","dl_extract"],["Driver Date of Birth","driver_dob"],
-["DL No. & issuing authority","dl_no"],["Type of DL","dl_type"],
-["Authorize to Drive","authorize_drive"],["Period of DL (For Transport)","dl_transport"],
-["Period of DL (For Non-Transport)","dl_nontransport"]];
-const injuredFields=[
-["Name of Deceased/Injured with Father’s Name","injured_name"],["Age (with age proof)","injured_age"],
-["Contact No.","injured_contact"],["Address (Permanent)","injured_address"],
-["Address if different from above","injured_alt_address"],["Monthly Income","monthly_income"],
-["In case the deceased was Govt. ----Employee/Semi Govt./PSU etc. check for his ESI coverage of reimbursement of medical expenses","esi_coverage"],
-["Occupation","injured_occupation"],["Name & Address of the employer with Phone No.","employer"],
-["Brief Statement of the Employer about employment","employer_statement"],["Status of deceased / injured","injured_status"],
-["Employment on compassionate ground if any OR pension details","pension_details"]];
-const medicalFields=[
-["Date of Hospitalization","hospitalization_date"],["Name of Hospital along with date of MLC","mlc_hospital"],
-["Nature of Injuries (as per MLC)","injuries"],["Date of Admission","admission_date"],
-["Date of Discharge","discharge_date"],["Medical Expenses","medical_expenses"],
-["In the case of death, does the deceased succumbed to injuries on the spot","death_spot"],
-["PMR No. & Date","pmr_no_date"],["Name of the Hospital where PMR carried","pmr_hospital"],
-["Cause of Death as per PMR","death_cause"]];
-function makeTwoColTable(id, fields){
-  document.getElementById(id).innerHTML=fields.map(([l,n])=>`<tr><td class="label">${l}</td><td><input name="${n}"></td></tr>`).join("");
+function addCompare(target,rows){
+ document.getElementById(target).innerHTML=rows.map(r=>`<div class="compare-row"><div class="compare-label">${r[0]}</div><div class="field"><input name="${r[1]}"></div><div class="field"><input name="${r[2]}"></div></div>`).join("");
 }
-makeTwoColTable("driverTable",driverFields); makeTwoColTable("injuredTable",injuredFields); makeTwoColTable("medicalTable",medicalFields);
+function addFields(target,rows){document.getElementById(target).innerHTML=rows.map(r=>`<div class="field"><label>${r[0]}</label><input name="${r[1]}"></div>`).join("")}
+addCompare("policyRows",policy);addCompare("vehicleRows",vehicle);addFields("driverFields",driver);addFields("injuredFields",injured);addFields("medicalFields",medical);
 
-function makeClaimants(){
- let rows='<tr><th>S.No.</th><th>Name</th><th>Age</th><th>Relation with deceased</th><th>Occupation</th><th>Phone No.</th></tr>';
- for(let i=1;i<=6;i++) rows+=`<tr><td>${i}</td><td><input name="claimant_${i}_name"></td><td><input name="claimant_${i}_age"></td><td><input name="claimant_${i}_relation"></td><td><input name="claimant_${i}_occupation"></td><td><input name="claimant_${i}_phone"></td></tr>`;
- document.getElementById("claimantsTable").innerHTML=rows;
-}
-function makeHospitals(){
- let rows='<tr><th>S. No</th><th>Name of Hospital</th><th>From</th><th>To</th><th>No. of days</th><th>Medical expenses</th></tr>';
- for(let i=1;i<=3;i++) rows+=`<tr><td>${i}</td><td><input name="hosp_${i}_name"></td><td><input name="hosp_${i}_from" type="date"></td><td><input name="hosp_${i}_to" type="date"></td><td><input name="hosp_${i}_days"></td><td><input name="hosp_${i}_expenses"></td></tr>`;
- document.getElementById("hospitalTable").innerHTML=rows;
-}
-makeClaimants(); makeHospitals();
+let h=`<table class="mini-table"><tr><th>S.No.</th><th>Name of Hospital</th><th>From</th><th>To</th><th>No. of days</th><th>Medical expenses</th></tr>`;
+for(let i=1;i<=3;i++)h+=`<tr><td>${i}</td><td><input name="hosp_${i}_name"></td><td><input name="hosp_${i}_from" type="date"></td><td><input name="hosp_${i}_to" type="date"></td><td><input name="hosp_${i}_days"></td><td><input name="hosp_${i}_expenses"></td></tr>`;
+hospitalRows.innerHTML=h+"</table>";
 
-function val(name){const e=document.querySelector(`[name="${name}"]`); return e?e.value.trim():"";}
-function fmtDate(s){if(!s)return ""; const d=new Date(s+"T00:00:00"); return isNaN(d)?"":d.toLocaleDateString("en-IN",{day:"2-digit",month:"short",year:"numeric"});}
-function addCell(row,text,bold=false){row.push(new docx.TableCell({children:[new docx.Paragraph({children:[new docx.TextRun({text:String(text||""),bold})]})]}));}
-function row2(label,name){return new docx.TableRow({children:[new docx.TableCell({children:[new docx.Paragraph({children:[new docx.TextRun({text:label,bold:true})]})]}),new docx.TableCell({children:[new docx.Paragraph(val(name)||"")]})]});}
-function table2(fields){return new docx.Table({width:{size:100,type:docx.WidthType.PERCENTAGE},rows:fields.map(([l,n])=>row2(l,n))});}
-function table3(fields){return new docx.Table({width:{size:100,type:docx.WidthType.PERCENTAGE},rows:[
- new docx.TableRow({children:["PARTICULARS","INSURED VEHICLE","OPPOSITE VEHICLE"].map(x=>new docx.TableCell({children:[new docx.Paragraph({children:[new docx.TextRun({text:x,bold:true})]})]}))}),
- ...fields.map(([label,a,b])=>new docx.TableRow({children:[label,a,b].map((x,i)=>new docx.TableCell({children:[new docx.Paragraph(i===0?x:val(x)||"")]}) )}))
-]});}
-function section(title,children){return [new docx.Paragraph({text:title,heading:docx.HeadingLevel.HEADING_2}),...children];}
-function para(label,name){return new docx.Paragraph({children:[new docx.TextRun({text:label+" ",bold:true}),new docx.TextRun(val(name)||"")]});}
+let c=`<table class="mini-table"><tr><th>S.No.</th><th>Name</th><th>Age</th><th>Relation with deceased</th><th>Occupation</th><th>Phone No.</th></tr>`;
+for(let i=1;i<=6;i++)c+=`<tr><td>${i}</td><td><input name="claimant_${i}_name"></td><td><input name="claimant_${i}_age"></td><td><input name="claimant_${i}_relation"></td><td><input name="claimant_${i}_occupation"></td><td><input name="claimant_${i}_phone"></td></tr>`;
+claimantRows.innerHTML=c+"</table>";
+
+document.querySelectorAll(".section-head").forEach(h=>h.addEventListener("click",()=>{const b=h.parentElement.querySelector(".section-body");b.classList.toggle("hidden");h.querySelector(".chev").textContent=b.classList.contains("hidden")?"⌄":"⌃"}));
+document.querySelectorAll(".nav-item").forEach(b=>b.addEventListener("click",()=>document.getElementById(b.dataset.target).scrollIntoView({behavior:"smooth"})));
+
+function updateProgress(){
+ const els=[...document.querySelectorAll("#reportForm input,#reportForm textarea,#reportForm select")].filter(e=>e.name);
+ const filled=els.filter(e=>e.value.trim()).length;
+ const pct=els.length?Math.round(filled/els.length*100):0;
+ document.getElementById("progressBar").style.width=pct+"%";document.getElementById("progressText").textContent=pct+"%";
+}
+document.getElementById("reportForm").addEventListener("input",updateProgress);updateProgress();
+
+function val(n){const e=document.querySelector(`[name="${n}"]`);return e?e.value.trim():""}
+function fmtDate(s){if(!s)return"";const d=new Date(s+"T00:00:00");return isNaN(d)?"":d.toLocaleDateString("en-IN",{day:"2-digit",month:"short",year:"numeric"})}
 
 async function generateDocx(){
-  try {
-    await window.__wordLibrariesPromise;
-
-    if (!window.PizZip || !window.PizZipUtils || !window.docxtemplater) {
-      throw new Error("The Word document libraries did not load. Please check that your GitHub Pages site can access the CDN.");
-    }
-
-    const templateUrl = "./investigation-template.docx";
-    const content = await new Promise((resolve, reject) => {
-      PizZipUtils.getBinaryContent(templateUrl + "?v=" + Date.now(), (error, data) => {
-        if (error) return reject(new Error("Could not load investigation-template.docx. Make sure the DOCX file is in the same GitHub Pages folder as index.html."));
-        resolve(data);
-      });
-    });
-
-    const zip = new PizZip(content);
-
-    const data = {};
-    document.querySelectorAll("#reportForm [name]").forEach(el => {
-      let v = el.value || "";
-      if (el.type === "date" && v) v = fmtDate(v);
-      data[el.name] = v;
-    });
-
-    const doc = new window.docxtemplater(zip, {
-      paragraphLoop: true,
-      linebreaks: true,
-      delimiters: { start: "{{", end: "}}" }
-    });
-
-    doc.render(data);
-
-    const blob = doc.getZip().generate({
-      type: "blob",
-      mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-      compression: "DEFLATE"
-    });
-
-    const fileNo = val("file_no");
-    const claimNo = val("claim_no");
-    const safePart = (value) => value.replace(/[^a-z0-9_-]+/gi,"_").replace(/^_+|_+$/g,"");
-    let filename;
-    if (fileNo && claimNo) {
-      filename = `${safePart(fileNo)}_${safePart(claimNo)}.docx`;
-    } else if (fileNo) {
-      filename = `${safePart(fileNo)}.docx`;
-    } else if (claimNo) {
-      filename = `${safePart(claimNo)}.docx`;
-    } else {
-      filename = "investigation-report.docx";
-    }
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
-  } catch (err) {
-    console.error(err);
-    let message = err && err.message ? err.message : String(err);
-    if (err && err.properties && err.properties.errors) {
-      message += "\n\nTemplate error details:\n" +
-        err.properties.errors.map(e => e.properties && e.properties.explanation ? e.properties.explanation : e.message).join("\n");
-    }
-    alert("Could not generate the Word document.\n\n" + message);
-  }
+ try{
+  await window.__wordLibrariesPromise;
+  const response=await fetch("./investigation-template.docx?v="+Date.now());
+  if(!response.ok)throw new Error("investigation-template.docx was not found. Keep it in the same folder as index.html.");
+  const buffer=await response.arrayBuffer();
+  const zip=new PizZip(buffer);
+  const data={};
+  document.querySelectorAll("#reportForm [name]").forEach(e=>{let v=e.value||"";if(e.type==="date"&&v)v=fmtDate(v);data[e.name]=v});
+  const doc=new window.docxtemplater(zip,{paragraphLoop:true,linebreaks:true,delimiters:{start:"{{",end:"}}"}});doc.render(data);
+  const blob=doc.getZip().generate({type:"blob",mimeType:"application/vnd.openxmlformats-officedocument.wordprocessingml.document",compression:"DEFLATE"});
+  const safe=x=>x.replace(/[<>:"/\\|?*]+/g,"_").replace(/^_+|_+$/g,"");
+  const f=val("file_no"),c=val("claim_no");
+  const name=f&&c?`${safe(f)}_${safe(c)}.docx`:f?`${safe(f)}.docx`:c?`${safe(c)}.docx`:"investigation-report.docx";
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1500);
+ }catch(err){console.error(err);alert("Could not generate the Word document.\n\n"+(err.message||err))}
 }
+</script>
+<script>
+window.__wordLibrariesPromise=(async()=>{const libs=[
+["https://unpkg.com/docxtemplater@3.71.0/build/docxtemplater.js","docxtemplater"],
+["https://unpkg.com/pizzip@3.2.0/dist/pizzip.js","PizZip"]];
+for(const [src,name] of libs){await new Promise((res,rej)=>{let s=document.createElement("script");s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s)});if(!window[name])throw Error("Could not load "+name)}return true})().catch(e=>{console.error(e);throw e});
 </script>
 </body>
 </html>
