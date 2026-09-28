@@ -157,7 +157,24 @@ button{border:0;border-radius:5px;padding:11px 16px;font-weight:700;cursor:point
 </form>
 </main>
 
-<script src="https://cdn.jsdelivr.net/npm/docx@9.5.1/build/index.umd.min.js"></script>
+<script>
+/* Load docx with a fallback CDN. */
+(function () {
+  const urls = [
+    "https://cdn.jsdelivr.net/npm/docx@9.5.1/build/index.umd.js",
+    "https://unpkg.com/docx@9.5.1/build/index.umd.js"
+  ];
+  function load(i) {
+    if (i >= urls.length) return;
+    const sc = document.createElement("script");
+    sc.src = urls[i];
+    sc.onload = () => { window.__docxLoaded = true; };
+    sc.onerror = () => load(i + 1);
+    document.head.appendChild(sc);
+  }
+  load(0);
+})();
+</script>
 <script>
 const driverFields=[
 ["Name of the Driver as per FIR","driver_fir"],["Name of the Driver as per CS","driver_cs"],
@@ -211,54 +228,59 @@ function section(title,children){return [new docx.Paragraph({text:title,heading:
 function para(label,name){return new docx.Paragraph({children:[new docx.TextRun({text:label+" ",bold:true}),new docx.TextRun(val(name)||"")]});}
 
 async function generateDocx(){
- if(typeof docx==="undefined"){alert("The document library could not be loaded. Check your internet connection and try again.");return;}
- const {Document,Packer,Paragraph,TextRun,Table,TableRow,TableCell,HeadingLevel,AlignmentType,WidthType}=docx;
- const children=[];
- children.push(new Paragraph({text:"ARROW INVESTIGATIONS",alignment:AlignmentType.CENTER,children:[new TextRun({text:"ARROW INVESTIGATIONS",bold:true,size:28})]}));
- children.push(new Paragraph({text:"MIG 113, Bharath Nagar Colony, Bharath Nagar, Hyderabad, Telangana – 500018.",alignment:AlignmentType.CENTER}));
- children.push(new Paragraph({text:"Mail ID: arrowinvestigations20@gmail.com | Contact no: +91 9000326191",alignment:AlignmentType.CENTER}));
- children.push(new Paragraph({text:"WITHOUT PREJUDICE",alignment:AlignmentType.CENTER,spacing:{before:160,after:160}}));
- children.push(para("Date:", "report_date"));
- children.push(new Paragraph("To,"));
- children.push(new Paragraph("The Manager - TP Legal Claims"));
- children.push(new Paragraph("ICICI Lombard General Insurance Company ltd."));
- children.push(new Paragraph("Hyderabad, Telangana."));
- children.push(new Paragraph({children:[new TextRun({text:"Subject: INVESTIGATION REPORT",bold:true})]}));
- children.push(new Table({width:{size:100,type:WidthType.PERCENTAGE},rows:[
-  new TableRow({children:["File No","Claim No","Date of Allotment","Date of report submitted"].map((x,i)=>new TableCell({children:[new Paragraph({children:[new TextRun({text:x,bold:true})]}),new Paragraph(i===0?val("file_no"):i===1?val("claim_no"):i===2?fmtDate(val("date_allotment")):fmtDate(val("date_submitted")))]}))})
- ]}));
- children.push(...section("REG: INVESTIGATION REPORT",[table2([
- ["CASE NO","case_no"],["MACT NAME","mact_name"],["NATURE OF CLAIM","nature_claim"],["CASE TITLE","case_title"],["NO. OF CONNECTED CASESS","connected_cases"],["AMOUNT CLAIMED","amount_claimed"]
- ])]));
- children.push(...section("POLICY DETAILS",[table3([
- ["Name of the Insurer","policy_insurer_insured","policy_insurer_opposite"],["Registration No. and Vehicle Make","policy_reg_insured","policy_reg_opposite"],["Name of the Insured","policy_name_insured","policy_name_opposite"],["Insured Contact No.","policy_contact_insured","policy_contact_opposite"],["Policy No","policy_no_insured","policy_no_opposite"],["Period of Insurance","policy_period_insured","policy_period_opposite"],["Date of Accident","policy_accident_insured","policy_accident_opposite"]
- ])]));
- children.push(...section("VEHICLE DETAILS",[table3([
- ["Reg. No./Make","vehicle_reg_insured","vehicle_reg_opposite"],["Name of the Owner & Address","vehicle_owner_insured","vehicle_owner_opposite"],["Owner Contact No.","vehicle_owner_contact_insured","vehicle_owner_contact_opposite"],["RC transferred to","rc_transfer_insured","rc_transfer_opposite"],["Date of RC transfer","rc_date_insured","rc_date_opposite"],["Carrying / Seating Capacity","capacity_insured","capacity_opposite"],["Date of Reg","reg_date_insured","reg_date_opposite"],["Fitness Certificate/validity","fitness_insured","fitness_opposite"],["Eng. No.","engine_insured","engine_opposite"],["Chassis. No.","chassis_insured","chassis_opposite"]
- ])]));
- children.push(...section("PERMIT DETAILS",[table2([["Permit No","permit_no"],["Authorized State","permit_state"],["Period of validity","permit_validity"],["Permit Verified or Not","permit_verified"]])]));
- children.push(...section("ACCIDENT DETAILS",[table2([
- ["Date of accident", "accident_date"],["Time","accident_time"],["Place of Accident","accident_place"],["Distance from PS","distance_ps"],["Date of Lodging FIR","fir_date"],["Time","fir_time"],["No. of days delay and Explanation for delay in lodging FIR","fir_delay"],["PS & FIR No. & Sections","fir_details"],["Name of Informer & Tel. No.","informer"],["Relation of the Informer with the claimant","informer_relation"],["Vehicle No. as per FIR","vehicle_fir"],["Is the vehicle identified in the FIR as offending vehicle (if yes mentioned the Reg. No.)","fir_offending_vehicle"],["Involvement of any other vehicle","other_vehicle"],["Any contribution from other vehicle attributed to the accident-(contributory)","contributory"],["Charge Sheet Filed u/s","charge_sheet"],["Date & Time of first admission to nearest hospital (name & address of the hospital)","first_admission"]
- ])]));
- children.push(...section("DRIVER DETAILS",[table2(driverFields)]));
- children.push(...section("DECEASED / INJURED DETAILS",[table2(injuredFields)]));
- children.push(...section("For Injury / Death case",[table2(medicalFields)]));
- const claimantRows=[new TableRow({children:["S.No.","Name","Age","Relation with deceased","Occupation","Phone No."].map(x=>new TableCell({children:[new Paragraph({children:[new TextRun({text:x,bold:true})]})]}))})];
- for(let i=1;i<=6;i++) claimantRows.push(new TableRow({children:[String(i),val(`claimant_${i}_name`),val(`claimant_${i}_age`),val(`claimant_${i}_relation`),val(`claimant_${i}_occupation`),val(`claimant_${i}_phone`)].map(x=>new TableCell({children:[new Paragraph(x)]}))}));
- children.push(...section("Details of all claimants including parents and unmarried sister of the deceased: -",[new Table({width:{size:100,type:WidthType.PERCENTAGE},rows:claimantRows})]));
- const hospRows=[new TableRow({children:["S. No","Name of Hospital","From","To","No. of days","Medical expenses"].map(x=>new TableCell({children:[new Paragraph({children:[new TextRun({text:x,bold:true})]})]}))})];
- for(let i=1;i<=3;i++) hospRows.push(new TableRow({children:[String(i),val(`hosp_${i}_name`),fmtDate(val(`hosp_${i}_from`)),fmtDate(val(`hosp_${i}_to`)),val(`hosp_${i}_days`),val(`hosp_${i}_expenses`)].map(x=>new TableCell({children:[new Paragraph(x)]}))}));
- children.push(...section("Medical / Hospitalization Details",[new Table({width:{size:100,type:WidthType.PERCENTAGE},rows:hospRows})]));
- children.push(...section("Disability / Compromise",[table2([["% of Disability Assessed","disability_percent"],["Disability issued by the Board/Single Doctor","disability_issued"],["Whether fit for compromise","fit_compromise"],["What is the defense if not fit for compromise","defense_compromise"]])]));
- children.push(...section("Brief Observations: -",[table2([
- ["1. Accident details as per petition:","obs_petition"],["2. Accident Details per FIR:","obs_fir"],["3. Version of Charge Sheet:","obs_charge_sheet"],["4. Version of Petitioner:","obs_petitioner"],["5. Version of Insured:","obs_insured"],["6. Version of Driver:","obs_driver"],["7. Discrepancies in 161 statements if any:","obs_161"],["Findings / Observations:","findings"],["Contestable Ground:","contestable_ground"],["Contestable Ground Evidence:","contestable_evidence"],["Fraud Ground:","fraud_ground"]
- ])]));
- children.push(new Paragraph({text:"For"}),new Paragraph("Arrow Investigation."));
- const d=new Document({sections:[{properties:{page:{margin:{top:720,right:720,bottom:720,left:720}}},children}]});
- const blob=await Packer.toBlob(d);
- const a=document.createElement("a"); a.href=URL.createObjectURL(blob);
- const claim=val("claim_no")||"investigation-report"; a.download=`${claim.replace(/[^a-z0-9_-]+/gi,"_")}.docx`; a.click();
- setTimeout(()=>URL.revokeObjectURL(a.href),1500);
+  try {
+    if (!window.PizZip || !window.docxtemplater) {
+      throw new Error("The Word document libraries did not load. Please refresh the page and try again.");
+    }
+
+    const templateUrl = "investigation-template.docx";
+    const response = await fetch(templateUrl, {cache:"no-store"});
+    if (!response.ok) {
+      throw new Error("Could not load investigation-template.docx (" + response.status + "). Make sure the DOCX template is uploaded beside index.html in GitHub.");
+    }
+
+    const buffer = await response.arrayBuffer();
+    const zip = new PizZip(buffer);
+
+    const data = {};
+    document.querySelectorAll("#reportForm [name]").forEach(el => {
+      let v = el.value || "";
+      if (el.type === "date" && v) v = fmtDate(v);
+      data[el.name] = v;
+    });
+
+    const doc = new window.docxtemplater(zip, {
+      paragraphLoop: true,
+      linebreaks: true,
+      delimiters: { start: "{{", end: "}}" }
+    });
+
+    doc.render(data);
+
+    const blob = doc.getZip().generate({
+      type: "blob",
+      mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      compression: "DEFLATE"
+    });
+
+    const claim = val("claim_no") || val("case_no") || "investigation-report";
+    const filename = claim.replace(/[^a-z0-9_-]+/gi,"_") + ".docx";
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  } catch (err) {
+    console.error(err);
+    let message = err && err.message ? err.message : String(err);
+    if (err && err.properties && err.properties.errors) {
+      message += "\n\nTemplate error details:\n" +
+        err.properties.errors.map(e => e.properties && e.properties.explanation ? e.properties.explanation : e.message).join("\n");
+    }
+    alert("Could not generate the Word document.\n\n" + message);
+  }
 }
 </script>
 </body>
