@@ -21,12 +21,35 @@ textarea{min-height:62px;resize:vertical}.wide textarea{min-height:100px}
 .actions{display:flex;gap:10px;flex-wrap:wrap;position:sticky;bottom:0;background:#fff;padding:12px 0;border-top:1px solid #ddd}
 button{border:0;border-radius:5px;padding:11px 16px;font-weight:700;cursor:pointer}.primary{background:var(--navy);color:#fff}.secondary{background:#e8edf2;color:#111}
 .note{font-size:12px;color:#555;margin:6px 0}.req{color:#b00020}
+
+#loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,#17365d,#1f4e78)}
+.login-card{width:100%;max-width:390px;background:#fff;border-radius:10px;padding:30px;box-shadow:0 12px 35px #0004}
+.login-card h1{margin:0 0 6px;text-align:center;color:#17365d;font-size:24px}.login-card p{text-align:center;color:#666;margin:0 0 22px;font-size:13px}
+.login-card label{display:block;font-weight:700;font-size:13px;margin:12px 0 6px}.login-card input{padding:11px}.login-btn{width:100%;margin-top:18px;background:#17365d;color:#fff;padding:12px}
+.login-error{display:none;color:#b00020;background:#fdeaea;border:1px solid #efb5b5;padding:9px;border-radius:4px;margin-top:12px;font-size:13px;text-align:center}
+#app{display:none}
+.logout-btn{float:right;background:#fff;color:#17365d;padding:7px 11px;font-size:12px}
 @media(max-width:700px){.paper{padding:15px}.grid2{grid-template-columns:1fr}.form{font-size:11px}.form th,.form td{padding:4px}}
 @media print{header,.actions{display:none}.paper{box-shadow:none;margin:0}body{background:#fff}}
 </style>
 </head>
 <body>
-<header><div class="brand">ARROW INVESTIGATIONS</div><small>Investigation Report Generator</small></header>
+<div id="loginScreen">
+  <div class="login-card">
+    <h1>ARROW INVESTIGATIONS</h1>
+    <p>Secure Investigation Report Portal</p>
+    <form id="loginForm" autocomplete="off">
+      <label for="loginUsername">Username</label>
+      <input id="loginUsername" type="text" autocomplete="username" required>
+      <label for="loginPassword">Password</label>
+      <input id="loginPassword" type="password" autocomplete="current-password" required>
+      <button class="login-btn" type="submit">LOGIN</button>
+      <div id="loginError" class="login-error">Invalid username or password.</div>
+    </form>
+  </div>
+</div>
+<div id="app">
+<header><button type="button" class="logout-btn" onclick="logout()">Logout</button><div class="brand">ARROW INVESTIGATIONS</div><small>Investigation Report Generator</small></header>
 <main>
 <form id="reportForm">
 <div class="paper">
@@ -156,6 +179,49 @@ button{border:0;border-radius:5px;padding:11px 16px;font-weight:700;cursor:point
 </div>
 </form>
 </main>
+</div>
+
+<script>
+// ===== STATIC USERNAME / PASSWORD =====
+// Edit these entries directly in this HTML file.
+const STATIC_USERS = [
+  { username: "admin", password: "Arrow@123" },
+  { username: "investigator1", password: "Arrow@456" },
+  { username: "investigator2", password: "Arrow@789" }
+];
+
+function showApp(){
+  document.getElementById("loginScreen").style.display = "none";
+  document.getElementById("app").style.display = "block";
+}
+function showLogin(){
+  document.getElementById("loginScreen").style.display = "flex";
+  document.getElementById("app").style.display = "none";
+}
+function logout(){
+  sessionStorage.removeItem("arrowLoggedIn");
+  document.getElementById("loginUsername").value = "";
+  document.getElementById("loginPassword").value = "";
+  document.getElementById("loginError").style.display = "none";
+  showLogin();
+}
+
+document.getElementById("loginForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  const username = document.getElementById("loginUsername").value.trim();
+  const password = document.getElementById("loginPassword").value;
+  const valid = STATIC_USERS.some(u => u.username === username && u.password === password);
+  if(valid){
+    sessionStorage.setItem("arrowLoggedIn", username);
+    document.getElementById("loginError").style.display = "none";
+    showApp();
+  } else {
+    document.getElementById("loginError").style.display = "block";
+  }
+});
+
+if(sessionStorage.getItem("arrowLoggedIn")){ showApp(); }
+</script>
 
 <script>
 /* Load the exact browser builds required for DOCX templating.
