@@ -158,21 +158,42 @@ button{border:0;border-radius:5px;padding:11px 16px;font-weight:700;cursor:point
 </main>
 
 <script>
-/* Load docx with a fallback CDN. */
+/* Load the exact browser builds required for DOCX templating.
+   Docxtemplater requires both Docxtemplater and PizZip. */
 (function () {
-  const urls = [
-    "https://cdn.jsdelivr.net/npm/docx@9.5.1/build/index.umd.js",
-    "https://unpkg.com/docx@9.5.1/build/index.umd.js"
+  const libraries = [
+    ["https://unpkg.com/docxtemplater@3.71.0/build/docxtemplater.js", "docxtemplater"],
+    ["https://unpkg.com/pizzip@3.2.0/dist/pizzip.js", "PizZip"],
+    ["https://unpkg.com/pizzip@3.2.0/dist/pizzip-utils.js", "PizZipUtils"]
   ];
-  function load(i) {
-    if (i >= urls.length) return;
-    const sc = document.createElement("script");
-    sc.src = urls[i];
-    sc.onload = () => { window.__docxLoaded = true; };
-    sc.onerror = () => load(i + 1);
-    document.head.appendChild(sc);
-  }
-  load(0);
+  const fallback = [
+    ["https://cdn.jsdelivr.net/npm/docxtemplater@3.71.0/build/docxtemplater.js", "docxtemplater"],
+    ["https://cdn.jsdelivr.net/npm/pizzip@3.2.0/dist/pizzip.js", "PizZip"],
+    ["https://cdn.jsdelivr.net/npm/pizzip@3.2.0/dist/pizzip-utils.js", "PizZipUtils"]
+  ];
+  window.__wordLibrariesPromise = (async function loadAll() {
+    for (let i = 0; i < libraries.length; i++) {
+      const urls = [libraries[i][0], fallback[i][0]];
+      let loaded = false;
+      for (const src of urls) {
+        try {
+          await new Promise((resolve, reject) => {
+            const script = document.createElement("script");
+            script.src = src;
+            script.onload = resolve;
+            script.onerror = () => reject(new Error("Failed to load " + src));
+            document.head.appendChild(script);
+          });
+          loaded = true;
+          break;
+        } catch (e) {}
+      }
+      if (!loaded || !window[libraries[i][1]]) {
+        throw new Error("Could not load the Word document library: " + libraries[i][1]);
+      }
+    }
+    return true;
+  })();
 })();
 </script>
 <script>
@@ -229,18 +250,21 @@ function para(label,name){return new docx.Paragraph({children:[new docx.TextRun(
 
 async function generateDocx(){
   try {
-    if (!window.PizZip || !window.docxtemplater) {
-      throw new Error("The Word document libraries did not load. Please refresh the page and try again.");
+    await window.__wordLibrariesPromise;
+
+    if (!window.PizZip || !window.PizZipUtils || !window.docxtemplater) {
+      throw new Error("The Word document libraries did not load. Please check that your GitHub Pages site can access the CDN.");
     }
 
-    const templateUrl = "investigation-template.docx";
-    const response = await fetch(templateUrl, {cache:"no-store"});
-    if (!response.ok) {
-      throw new Error("Could not load investigation-template.docx (" + response.status + "). Make sure the DOCX template is uploaded beside index.html in GitHub.");
-    }
+    const templateUrl = "./investigation-template.docx";
+    const content = await new Promise((resolve, reject) => {
+      PizZipUtils.getBinaryContent(templateUrl + "?v=" + Date.now(), (error, data) => {
+        if (error) return reject(new Error("Could not load investigation-template.docx. Make sure the DOCX file is in the same GitHub Pages folder as index.html."));
+        resolve(data);
+      });
+    });
 
-    const buffer = await response.arrayBuffer();
-    const zip = new PizZip(buffer);
+    const zip = new PizZip(content);
 
     const data = {};
     document.querySelectorAll("#reportForm [name]").forEach(el => {
