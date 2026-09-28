@@ -1,105 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form to Word Document Generator</title>
-    
-    <!-- Libraries to generate .docx and trigger downloads -->
-    <script src="https://unpkg.com/docx@8.5.0/build/index.umd.js"></script>
-    <script src="https://unpkg.com/file-saver@2.0.5/dist/FileSaver.min.js"></script>
-
-    <style>
-        body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; }
-        h1 { color: #333; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; }
-        input, textarea { width: 100%; padding: 8px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        button { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
-        button:hover { background-color: #0056b3; }
-    </style>
+  <title>Investigation Report Form</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/8.3.2/docx.min.js"></script>
 </head>
 <body>
+  <h2>Investigation Report Form</h2>
+  <form id="reportForm">
+    <label>Claim No:</label>
+    <input type="text" id="claimNo" required><br><br>
+    <label>Case Title:</label>
+    <input type="text" id="caseTitle" required><br><br>
+    <label>Accident Date:</label>
+    <input type="date" id="accidentDate" required><br><br>
+    <label>Accident Place:</label>
+    <input type="text" id="accidentPlace" required><br><br>
+    <label>Injured Name:</label>
+    <input type="text" id="injuredName" required><br><br>
+    <button type="submit">Generate Report</button>
+  </form>
 
-    <h1>Generate Word Document</h1>
-    <p>Fill out the form below and click save to generate a Word document.</p>
+  <script>
+    document.getElementById("reportForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
 
-    <form id="docForm">
-        <label for="fullName">Full Name:</label>
-        <input type="text" id="fullName" required>
+      const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell } = docx;
 
-        <label for="email">Email Address:</label>
-        <input type="email" id="email" required>
+      const doc = new Document({
+        sections: [{
+          children: [
+            new Paragraph({ children: [new TextRun({ text: "WITHOUT PREJUDICE", bold: true })] }),
+            new Paragraph("Date: " + new Date().toLocaleDateString()),
+            new Paragraph("Subject: INVESTIGATION REPORT"),
+            new Paragraph("Claim No: " + document.getElementById("claimNo").value),
+            new Paragraph("Case Title: " + document.getElementById("caseTitle").value),
 
-        <label for="reportDetails">Report Details:</label>
-        <textarea id="reportDetails" rows="5" required></textarea>
+            new Paragraph({ text: "ACCIDENT DETAILS", bold: true }),
+            new Table({
+              rows: [
+                new TableRow({
+                  children: [
+                    new TableCell({ children: [new Paragraph("Date of Accident")] }),
+                    new TableCell({ children: [new Paragraph(document.getElementById("accidentDate").value)] })
+                  ]
+                }),
+                new TableRow({
+                  children: [
+                    new TableCell({ children: [new Paragraph("Place of Accident")] }),
+                    new TableCell({ children: [new Paragraph(document.getElementById("accidentPlace").value)] })
+                  ]
+                }),
+                new TableRow({
+                  children: [
+                    new TableCell({ children: [new Paragraph("Injured Person")] }),
+                    new TableCell({ children: [new Paragraph(document.getElementById("injuredName").value)] })
+                  ]
+                })
+              ]
+            }),
 
-        <button type="submit">Save & Generate Word Doc</button>
-    </form>
+            new Paragraph({ text: "Findings / Observations:", bold: true }),
+            new Paragraph("• Accident allegedly occurred as per FIR details."),
+            new Paragraph("• Police charge sheet attributes rash and negligent driving."),
+            new Paragraph("• Contestable Ground: NO DL"),
+          ]
+        }]
+      });
 
-    <script>
-        document.getElementById('docForm').addEventListener('submit', async function(event) {
-            event.preventDefault(); // Prevent standard form submission
-
-            // 1. Get form data
-            const name = document.getElementById('fullName').value;
-            const email = document.getElementById('email').value;
-            const details = document.getElementById('reportDetails').value;
-            const currentDate = new Date().toLocaleDateString();
-
-            // 2. Setup docx library components
-            const { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType } = docx;
-
-            // 3. Create the Word Document structure
-            const doc = new Document({
-                sections: [{
-                    children: [
-                        new Paragraph({
-                            text: "Form Submission Report",
-                            heading: HeadingLevel.HEADING_1,
-                            alignment: AlignmentType.CENTER,
-                        }),
-                        new Paragraph({
-                            text: `Generated on: ${currentDate}`,
-                            alignment: AlignmentType.RIGHT,
-                        }),
-                        new Paragraph({ text: "" }), // Empty line
-                        new Paragraph({
-                            children: [
-                                new TextRun({ text: "Name: ", bold: true }),
-                                new TextRun(name)
-                            ]
-                        }),
-                        new Paragraph({
-                            children: [
-                                new TextRun({ text: "Email: ", bold: true }),
-                                new TextRun(email)
-                            ]
-                        }),
-                        new Paragraph({ text: "" }), // Empty line
-                        new Paragraph({
-                            children: [
-                                new TextRun({ text: "Details:", bold: true })
-                            ]
-                        }),
-                        new Paragraph({
-                            text: details
-                        })
-                    ]
-                }]
-            });
-
-            // 4. Generate the Blob and trigger download
-            try {
-                const blob = await Packer.toBlob(doc);
-                saveAs(blob, `${name.replace(/\s+/g, '_')}_Report.docx`);
-                alert("Word document generated and downloading!");
-                document.getElementById('docForm').reset(); // Clear form
-            } catch (err) {
-                console.error("Error generating document: ", err);
-                alert("Failed to generate document. Please try again.");
-            }
-        });
-    </script>
-
+      const blob = await Packer.toBlob(doc);
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "InvestigationReport.docx";
+      link.click();
+    });
+  </script>
 </body>
 </html>
