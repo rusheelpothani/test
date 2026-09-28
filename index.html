@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form to Word Document Generator</title>
+    
+    <!-- Libraries to generate .docx and trigger downloads -->
+    <script src="https://unpkg.com/docx@8.5.0/build/index.umd.js"></script>
+    <script src="https://unpkg.com/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; }
+        h1 { color: #333; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, textarea { width: 100%; padding: 8px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+        button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+
+    <h1>Generate Word Document</h1>
+    <p>Fill out the form below and click save to generate a Word document.</p>
+
+    <form id="docForm">
+        <label for="fullName">Full Name:</label>
+        <input type="text" id="fullName" required>
+
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" required>
+
+        <label for="reportDetails">Report Details:</label>
+        <textarea id="reportDetails" rows="5" required></textarea>
+
+        <button type="submit">Save & Generate Word Doc</button>
+    </form>
+
+    <script>
+        document.getElementById('docForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Prevent standard form submission
+
+            // 1. Get form data
+            const name = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const details = document.getElementById('reportDetails').value;
+            const currentDate = new Date().toLocaleDateString();
+
+            // 2. Setup docx library components
+            const { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType } = docx;
+
+            // 3. Create the Word Document structure
+            const doc = new Document({
+                sections: [{
+                    children: [
+                        new Paragraph({
+                            text: "Form Submission Report",
+                            heading: HeadingLevel.HEADING_1,
+                            alignment: AlignmentType.CENTER,
+                        }),
+                        new Paragraph({
+                            text: `Generated on: ${currentDate}`,
+                            alignment: AlignmentType.RIGHT,
+                        }),
+                        new Paragraph({ text: "" }), // Empty line
+                        new Paragraph({
+                            children: [
+                                new TextRun({ text: "Name: ", bold: true }),
+                                new TextRun(name)
+                            ]
+                        }),
+                        new Paragraph({
+                            children: [
+                                new TextRun({ text: "Email: ", bold: true }),
+                                new TextRun(email)
+                            ]
+                        }),
+                        new Paragraph({ text: "" }), // Empty line
+                        new Paragraph({
+                            children: [
+                                new TextRun({ text: "Details:", bold: true })
+                            ]
+                        }),
+                        new Paragraph({
+                            text: details
+                        })
+                    ]
+                }]
+            });
+
+            // 4. Generate the Blob and trigger download
+            try {
+                const blob = await Packer.toBlob(doc);
+                saveAs(blob, `${name.replace(/\s+/g, '_')}_Report.docx`);
+                alert("Word document generated and downloading!");
+                document.getElementById('docForm').reset(); // Clear form
+            } catch (err) {
+                console.error("Error generating document: ", err);
+                alert("Failed to generate document. Please try again.");
+            }
+        });
+    </script>
+
+</body>
+</html>
