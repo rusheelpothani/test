@@ -353,8 +353,19 @@ async function generateDocx(){
       compression: "DEFLATE"
     });
 
-    const claim = val("claim_no") || val("case_no") || "investigation-report";
-    const filename = claim.replace(/[^a-z0-9_-]+/gi,"_") + ".docx";
+    const fileNo = val("file_no");
+    const claimNo = val("claim_no");
+    const safePart = (value) => value.replace(/[^a-z0-9_-]+/gi,"_").replace(/^_+|_+$/g,"");
+    let filename;
+    if (fileNo && claimNo) {
+      filename = `${safePart(fileNo)}_${safePart(claimNo)}.docx`;
+    } else if (fileNo) {
+      filename = `${safePart(fileNo)}.docx`;
+    } else if (claimNo) {
+      filename = `${safePart(claimNo)}.docx`;
+    } else {
+      filename = "investigation-report.docx";
+    }
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = filename;
