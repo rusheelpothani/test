@@ -12,8 +12,55 @@ button,input,textarea,select{font:inherit}.hidden{display:none!important}
 .login-card{width:min(410px,100%);background:#fff;border-radius:18px;padding:34px;box-shadow:0 25px 70px #0004}.logo{font-weight:800;color:var(--navy);font-size:24px;text-align:center}.login-card p{text-align:center;color:var(--muted);font-size:13px}.login-card label{display:block;font-weight:700;font-size:13px;margin:16px 0 7px}.login-card input{width:100%;padding:12px;border:1px solid var(--line);border-radius:9px}.login-card button{width:100%;margin-top:20px;padding:12px;border:0;border-radius:9px;background:var(--navy);color:#fff;font-weight:800;cursor:pointer}.error{display:none;margin-top:12px;padding:10px;border-radius:8px;background:#fee2e2;color:var(--danger);font-size:13px}
 .app{display:none}.topbar{height:68px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:20}.brand{font-weight:850;color:var(--navy);letter-spacing:.2px}.brand small{display:block;color:var(--muted);font-size:11px;font-weight:500;margin-top:2px}.user-area{display:flex;align-items:center;gap:12px}.logout{border:1px solid var(--line);background:#fff;padding:8px 12px;border-radius:8px;cursor:pointer}
 .layout{display:grid;grid-template-columns:245px minmax(0,1fr);min-height:calc(100vh - 68px)}.sidebar{background:#fff;border-right:1px solid var(--line);padding:22px 14px;position:sticky;top:68px;height:calc(100vh - 68px);overflow:auto}.nav-title{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#94a3b8;padding:8px 10px}.nav-item{display:flex;gap:10px;align-items:center;width:100%;border:0;background:transparent;padding:10px;border-radius:9px;text-align:left;color:#475569;cursor:pointer;font-size:13px}.nav-item:hover,.nav-item.active{background:#eff6ff;color:var(--blue);font-weight:700}.main{padding:30px;max-width:1200px;width:100%;margin:auto}.page-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;margin-bottom:24px}.eyebrow{font-size:12px;color:var(--blue);font-weight:800;text-transform:uppercase;letter-spacing:.1em}.page-head h1{margin:4px 0 6px;font-size:30px}.page-head p{margin:0;color:var(--muted);font-size:14px}.progress{min-width:230px}.progress-label{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:6px}.bar{height:7px;background:#e2e8f0;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:var(--blue);width:0%;transition:.25s}
-.section{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:18px;overflow:hidden;scroll-margin-top:90px}.section-head{display:flex;align-items:center;gap:12px;padding:17px 20px;border-bottom:1px solid var(--line);cursor:pointer}.section-head .icon{width:34px;height:34px;display:grid;place-items:center;border-radius:9px;background:#eff6ff;color:var(--blue);font-weight:900}.section-head h2{font-size:15px;margin:0}.section-head p{margin:3px 0 0;color:var(--muted);font-size:12px}.chev{margin-left:auto;color:#94a3b8}.section-body{padding:20px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.field label{display:block;font-size:12px;font-weight:750;color:#334155;margin-bottom:6px}.field input,.field textarea,.field select{width:100%;border:1px solid #d8e0ea;border-radius:8px;background:#fff;padding:10px 11px;outline:none;color:#172033}.field textarea{min-height:90px;resize:vertical}.field input:focus,.field textarea:focus,.field select:focus{border-color:#93c5fd;box-shadow:0 0 0 3px #dbeafe}.full{grid-column:1/-1}.subhead{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#64748b;margin:18px 0 10px;font-weight:800}.vehicle-head{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:10px}.vehicle-title{padding:10px 12px;border-radius:8px;background:#f8fafc;font-size:12px;font-weight:800;color:#475569}.compare-row{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:12px;align-items:start;margin-bottom:10px}.compare-label{font-size:12px;font-weight:700;color:#475569;padding-top:10px}.rows{display:grid;gap:10px}.mini-table{width:100%;border-collapse:collapse;font-size:12px}.mini-table th,.mini-table td{border:1px solid var(--line);padding:8px}.mini-table th{background:#f8fafc;text-align:left}.actions{position:sticky;bottom:0;background:#ffffffee;backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:14px 0;display:flex;justify-content:flex-end;gap:10px;z-index:15}.btn{border:0;border-radius:9px;padding:11px 16px;font-weight:800;cursor:pointer}.btn.primary{background:var(--navy);color:#fff}.btn.secondary{background:#eef2f7;color:#334155}.btn.green{background:var(--success);color:#fff}.hint{font-size:11px;color:#94a3b8;margin-top:5px}
-@media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{display:none}.main{padding:18px}.page-head{display:block}.progress{margin-top:16px}.grid,.grid3{grid-template-columns:1fr}.compare-row{grid-template-columns:1fr}.compare-label{padding-top:0}.topbar{padding:0 15px}}
+.section{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:18px;overflow:hidden;scroll-margin-top:90px}.section-head{display:flex;align-items:center;gap:12px;padding:17px 20px;border-bottom:1px solid var(--line);cursor:pointer}.section-head .icon{width:34px;height:34px;display:grid;place-items:center;border-radius:9px;background:#eff6ff;color:var(--blue);font-weight:900}.section-head h2{font-size:15px;margin:0}.section-head p{margin:3px 0 0;color:var(--muted);font-size:12px}.chev{margin-left:auto;color:#94a3b8}.section-body{padding:20px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.field label{display:block;font-size:12px;font-weight:750;color:#334155;margin-bottom:6px}.field input,.field textarea,.field select{width:100%;border:1px solid #d8e0ea;border-radius:8px;background:#fff;padding:10px 11px;outline:none;color:#172033}.field textarea{min-height:90px;resize:vertical}.field input:focus,.field textarea:focus,.field select:focus{border-color:#93c5fd;box-shadow:0 0 0 3px #dbeafe}.full{grid-column:1/-1}.subhead{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#64748b;margin:18px 0 10px;font-weight:800}.vehicle-head{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:12px;margin-bottom:10px;align-items:end}.vehicle-head-spacer{visibility:hidden}.vehicle-title{padding:10px 12px;border-radius:8px;background:#f8fafc;font-size:12px;font-weight:800;color:#475569;text-align:center;border:1px solid var(--line)}.compare-row{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:12px;align-items:start;margin-bottom:10px}.compare-label{font-size:12px;font-weight:700;color:#475569;padding-top:10px}.rows{display:grid;gap:10px}.mini-table{width:100%;border-collapse:collapse;font-size:12px}.mini-table th,.mini-table td{border:1px solid var(--line);padding:8px}.mini-table th{background:#f8fafc;text-align:left}.actions{position:sticky;bottom:0;background:#ffffffee;backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:14px 0;display:flex;justify-content:flex-end;gap:10px;z-index:15}.btn{border:0;border-radius:9px;padding:11px 16px;font-weight:800;cursor:pointer}.btn.primary{background:var(--navy);color:#fff}.btn.secondary{background:#eef2f7;color:#334155}.btn.green{background:var(--success);color:#fff} .hint{font-size:11px;color:#94a3b8;margin-top:5px}
+.vehicle-head{grid-template-columns:1.25fr 1fr 1fr;align-items:stretch;margin-bottom:12px}.vehicle-title{display:flex;align-items:center;justify-content:center;min-height:42px;letter-spacing:.04em}
+.review-overlay{position:fixed;inset:0;background:#f5f7fb;z-index:1000;overflow:auto;display:none}.review-page{max-width:1180px;margin:0 auto;padding:24px}.review-top{position:sticky;top:0;z-index:3;background:#f5f7fbdd;backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:12px 0 16px;margin-bottom:18px}.review-topbar{display:flex;align-items:center;justify-content:space-between;gap:14px}.review-top h2{margin:0;font-size:22px;color:var(--navy)}.review-top p{margin:4px 0 0;color:var(--muted);font-size:12px}.review-actions{display:flex;gap:8px;flex-wrap:wrap}.review-section{background:#fff;border:1px solid var(--line);border-radius:14px;margin-bottom:14px;overflow:hidden}.review-section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px;background:#f8fafc;border-bottom:1px solid var(--line)}.review-section-head h3{margin:0;font-size:14px;color:#24324a}.review-edit{border:1px solid #bfdbfe;background:#eff6ff;color:#1d4ed8;border-radius:8px;padding:7px 10px;font-size:12px;font-weight:800;cursor:pointer}.review-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0}.review-item{padding:12px 16px;border-bottom:1px solid #edf1f5}.review-item:nth-child(odd){border-right:1px solid #edf1f5}.review-label{font-size:11px;color:#64748b;font-weight:750;margin-bottom:4px}.review-value{font-size:13px;color:#172033;white-space:pre-wrap;overflow-wrap:anywhere}.review-empty{padding:16px;color:#94a3b8;font-size:12px}.review-bottom{position:sticky;bottom:0;background:#ffffffee;backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:12px 0;margin-top:18px;display:flex;justify-content:flex-end;gap:10px}
+@media(max-width:700px){.review-page{padding:14px 10px 90px}.review-topbar{align-items:flex-start;flex-direction:column}.review-grid{grid-template-columns:1fr}.review-item:nth-child(odd){border-right:0}.review-actions,.review-bottom{display:grid;grid-template-columns:1fr 1fr;width:100%}.review-actions .btn,.review-bottom .btn{width:100%;min-height:44px}.review-section-head{padding:12px}.review-item{padding:11px 12px}}
+
+@media (max-width:1100px){
+  .layout{grid-template-columns:205px minmax(0,1fr)}
+  .main{padding:22px}
+  .sidebar{padding:16px 10px}
+  .nav-item{font-size:12px;padding:10px 8px}
+  .page-head h1{font-size:27px}
+}
+@media (max-width:900px){
+  .layout{display:block;min-height:calc(100vh - 64px)}
+  .topbar{height:64px;padding:0 14px;position:sticky;top:0}
+  .brand{font-size:14px}.brand small{font-size:10px}
+  .user-area{gap:7px}.user-area span{display:none}.logout{min-height:42px;padding:8px 10px}
+  .sidebar{display:flex;position:sticky;top:64px;height:auto;z-index:18;padding:8px 10px;border-right:0;border-bottom:1px solid var(--line);overflow-x:auto;overflow-y:hidden;gap:5px;white-space:nowrap;-webkit-overflow-scrolling:touch}
+  .nav-title{display:none}
+  .nav-item{flex:0 0 auto;width:auto;min-height:42px;padding:9px 12px;border:1px solid transparent;font-size:12px}
+  .main{padding:18px 14px 30px;max-width:none}
+  .page-head{display:block;margin-bottom:18px}.page-head h1{font-size:25px;line-height:1.15}.page-head p{font-size:13px;line-height:1.5}
+  .progress{margin-top:15px;min-width:0}
+  .section{border-radius:12px;margin-bottom:14px;scroll-margin-top:125px}
+  .section-head{min-height:64px;padding:12px 14px;gap:10px}.section-head .icon{width:32px;height:32px;flex:0 0 32px}.section-head h2{font-size:14px}.section-head p{font-size:11px;line-height:1.35}
+  .section-body{padding:14px}
+  .grid,.grid3{grid-template-columns:1fr;gap:13px}.field.full{grid-column:auto}
+  .field label{font-size:12px}.field input,.field textarea,.field select{font-size:16px;min-height:44px;padding:10px 11px}
+  .field textarea{min-height:100px}
+  .vehicle-head{grid-template-columns:1fr;gap:6px}.vehicle-head-spacer{display:none}.vehicle-title{text-align:left;padding:9px 11px}
+  .compare-row{grid-template-columns:1fr;gap:5px;margin-bottom:13px;padding-bottom:13px;border-bottom:1px solid #edf1f5}.compare-label{padding-top:0;font-size:12px}
+  .mini-table{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:nowrap}
+  .mini-table th,.mini-table td{padding:7px;min-width:115px}.mini-table th:first-child,.mini-table td:first-child{min-width:50px}
+  .actions{position:sticky;bottom:0;padding:10px 0;display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+  .actions .btn{min-height:46px;padding:10px 8px;font-size:12px}.actions .btn.green{grid-column:1/-1;order:-1}
+}
+@media (max-width:520px){
+  .login{padding:14px}.login-card{padding:25px 19px;border-radius:14px}.logo{font-size:21px}
+  .main{padding:14px 10px 26px}.page-head h1{font-size:23px}.page-head p{font-size:12px}
+  .section-head{padding:11px 12px}.section-body{padding:12px}
+  .nav-item{padding:8px 11px;font-size:11px}
+  .subhead{font-size:11px}
+  .actions{grid-template-columns:1fr 1fr}.actions .btn{font-size:11px}.actions .btn.green{font-size:12px}
+}
+@media (max-width:380px){
+  .brand small{display:none}.logout{font-size:11px}.section-head p{display:none}.section-head h2{font-size:13px}.actions .btn{font-size:10px;padding-left:5px;padding-right:5px}
+}
+
+@media print{body{background:#fff}.topbar,.sidebar,.page-head .progress,.actions,.login{display:none!important}.app{display:block!important}.layout{display:block;min-height:auto}.main{max-width:none;padding:0}.section{break-inside:avoid;border:1px solid #ccc;margin-bottom:12px}.section-body{display:block!important}.field input,.field textarea,.field select{border:0;padding:4px 0;box-shadow:none;background:#fff}.page-head{display:block}.page-head h1{font-size:22px}}
 </style>
 </head>
 <body>
@@ -43,12 +90,13 @@ button,input,textarea,select{font:inherit}.hidden{display:none!important}
   <button class="nav-item active" data-target="report">01 · Report</button>
   <button class="nav-item" data-target="policy">02 · Policy</button>
   <button class="nav-item" data-target="vehicle">03 · Vehicles</button>
-  <button class="nav-item" data-target="accident">04 · Accident & FIR</button>
-  <button class="nav-item" data-target="driver">05 · Driver</button>
-  <button class="nav-item" data-target="injured">06 · Injured / Deceased</button>
-  <button class="nav-item" data-target="medical">07 · Medical</button>
-  <button class="nav-item" data-target="claimants">08 · Claimants</button>
-  <button class="nav-item" data-target="findings">09 · Findings</button>
+  <button class="nav-item" data-target="permit">04 · Permit Details</button>
+  <button class="nav-item" data-target="accident">05 · Accident & FIR</button>
+  <button class="nav-item" data-target="driver">06 · Driver</button>
+  <button class="nav-item" data-target="injured">07 · Injured / Deceased</button>
+  <button class="nav-item" data-target="medical">08 · Medical</button>
+  <button class="nav-item" data-target="claimants">09 · Claimants</button>
+  <button class="nav-item" data-target="findings">10 · Findings</button>
 </aside>
 
 <main class="main">
@@ -78,21 +126,27 @@ button,input,textarea,select{font:inherit}.hidden{display:none!important}
 <section class="section" id="policy">
 <div class="section-head"><div class="icon">02</div><div><h2>Policy details</h2><p>Insured and opposite vehicle policy information</p></div><div class="chev">⌃</div></div>
 <div class="section-body">
-<div class="vehicle-head"><div class="vehicle-title">INSURED VEHICLE</div><div class="vehicle-title">OPPOSITE VEHICLE</div></div>
+<div class="vehicle-head"><div class="vehicle-head-spacer">.</div><div class="vehicle-title">INSURED VEHICLE</div><div class="vehicle-title">OPPOSITE VEHICLE</div></div>
 <div id="policyRows"></div>
 </div></section>
 
 <section class="section" id="vehicle">
 <div class="section-head"><div class="icon">03</div><div><h2>Vehicle details</h2><p>Registration, ownership, RC, fitness and identification</p></div><div class="chev">⌃</div></div>
-<div class="section-body"><div id="vehicleRows"></div>
-<div class="subhead">Permit details</div>
+<div class="section-body">
+<div class="vehicle-head"><div class="vehicle-head-spacer">.</div><div class="vehicle-title">INSURED VEHICLE</div><div class="vehicle-title">OPPOSITE VEHICLE</div></div>
+<div id="vehicleRows"></div>
+</div></section>
+
+<section class="section" id="permit">
+<div class="section-head"><div class="icon">04</div><div><h2>Permit details</h2><p>Permit information and verification</p></div><div class="chev">⌃</div></div>
+<div class="section-body">
 <div class="grid">
 <div class="field"><label>Permit No</label><input name="permit_no"></div><div class="field"><label>Authorized State</label><input name="permit_state"></div>
 <div class="field"><label>Period of Validity</label><input name="permit_validity"></div><div class="field"><label>Permit Verified or Not</label><select name="permit_verified"><option></option><option>Yes</option><option>No</option><option>Not Applicable</option></select></div>
 </div></div></section>
 
 <section class="section" id="accident">
-<div class="section-head"><div class="icon">04</div><div><h2>Accident & FIR</h2><p>Accident circumstances, police records and charge sheet</p></div><div class="chev">⌃</div></div>
+<div class="section-head"><div class="icon">05</div><div><h2>Accident & FIR</h2><p>Accident circumstances, police records and charge sheet</p></div><div class="chev">⌃</div></div>
 <div class="section-body"><div class="grid">
 <div class="field"><label>Date of Accident</label><input name="accident_date" type="date"></div><div class="field"><label>Time</label><input name="accident_time" type="time"></div>
 <div class="field"><label>Place of Accident</label><input name="accident_place"></div><div class="field"><label>Distance from PS</label><input name="distance_ps"></div>
@@ -108,15 +162,15 @@ button,input,textarea,select{font:inherit}.hidden{display:none!important}
 </div></div></section>
 
 <section class="section" id="driver">
-<div class="section-head"><div class="icon">05</div><div><h2>Driver details</h2><p>Driver identity, licence and authorization</p></div><div class="chev">⌃</div></div>
+<div class="section-head"><div class="icon">06</div><div><h2>Driver details</h2><p>Driver identity, licence and authorization</p></div><div class="chev">⌃</div></div>
 <div class="section-body"><div class="grid" id="driverFields"></div></div></section>
 
 <section class="section" id="injured">
-<div class="section-head"><div class="icon">06</div><div><h2>Deceased / injured details</h2><p>Personal, employment and income information</p></div><div class="chev">⌃</div></div>
+<div class="section-head"><div class="icon">07</div><div><h2>Deceased / injured details</h2><p>Personal, employment and income information</p></div><div class="chev">⌃</div></div>
 <div class="section-body"><div class="grid" id="injuredFields"></div></div></section>
 
 <section class="section" id="medical">
-<div class="section-head"><div class="icon">07</div><div><h2>Medical & hospitalization</h2><p>Hospital, MLC, PMR and treatment information</p></div><div class="chev">⌃</div></div>
+<div class="section-head"><div class="icon">08</div><div><h2>Medical & hospitalization</h2><p>Hospital, MLC, PMR and treatment information</p></div><div class="chev">⌃</div></div>
 <div class="section-body">
 <div class="grid" id="medicalFields"></div>
 <div class="subhead">Hospitalization records</div>
@@ -131,11 +185,11 @@ button,input,textarea,select{font:inherit}.hidden{display:none!important}
 </div></section>
 
 <section class="section" id="claimants">
-<div class="section-head"><div class="icon">08</div><div><h2>Claimants</h2><p>Parents, unmarried sisters and other claimants</p></div><div class="chev">⌃</div></div>
+<div class="section-head"><div class="icon">09</div><div><h2>Claimants</h2><p>Parents, unmarried sisters and other claimants</p></div><div class="chev">⌃</div></div>
 <div class="section-body"><div id="claimantRows"></div></div></section>
 
 <section class="section" id="findings">
-<div class="section-head"><div class="icon">09</div><div><h2>Investigation findings</h2><p>Versions, discrepancies, observations and grounds</p></div><div class="chev">⌃</div></div>
+<div class="section-head"><div class="icon">10</div><div><h2>Investigation findings</h2><p>Versions, discrepancies, observations and grounds</p></div><div class="chev">⌃</div></div>
 <div class="section-body"><div class="grid">
 <div class="field full"><label>Accident Details as per Petition</label><textarea name="obs_petition"></textarea></div>
 <div class="field full"><label>Accident Details per FIR</label><textarea name="obs_fir"></textarea></div>
@@ -152,11 +206,26 @@ button,input,textarea,select{font:inherit}.hidden{display:none!important}
 
 <div class="actions">
 <button type="button" class="btn secondary" onclick="document.getElementById('reportForm').reset();updateProgress()">Clear Form</button>
-<button type="button" class="btn green" onclick="generateDocx()">Generate Word Report</button>
+<!-- <button type="button" class="btn secondary" onclick="saveAsPdf()">Save as PDF</button> -->
+<!-- <button type="button" class="btn secondary" onclick="saveAsExcel()">Save as Excel</button> -->
+<button type="button" class="btn green" onclick="openReview()">Generate Word Report</button>
 </div>
 </form>
 </main>
 </div>
+</div>
+
+<div id="reviewOverlay" class="review-overlay" aria-hidden="true">
+  <div class="review-page">
+    <div class="review-top">
+      <div class="review-topbar">
+        <div><h2>Review Investigation Report</h2><p>Review all keyed-in information before generating the Word report. Use Edit on any section to return to the form.</p></div>
+        <div class="review-actions"><button type="button" class="btn secondary" onclick="closeReview()">Back to Form</button><button type="button" class="btn green" onclick="submitReviewedReport()">Submit &amp; Generate Word Report</button></div>
+      </div>
+    </div>
+    <div id="reviewContent"></div>
+    <div class="review-bottom"><button type="button" class="btn secondary" onclick="closeReview()">Edit Report</button><button type="button" class="btn green" onclick="submitReviewedReport()">Submit &amp; Generate Word Report</button></div>
+  </div>
 </div>
 
 <script>
@@ -213,6 +282,49 @@ document.getElementById("reportForm").addEventListener("input",updateProgress);u
 function val(n){const e=document.querySelector(`[name="${n}"]`);return e?e.value.trim():""}
 function fmtDate(s){if(!s)return"";const d=new Date(s+"T00:00:00");return isNaN(d)?"":d.toLocaleDateString("en-IN",{day:"2-digit",month:"short",year:"numeric"})}
 
+function safeFilePart(x){return (x||"").replace(/[<>:"/\\|?*]+/g,"_").replace(/^_+|_+$/g,"")}
+function reportBaseName(){const f=val("file_no"),c=val("claim_no");if(f&&c)return safeFilePart(f)+"_"+safeFilePart(c);if(f)return safeFilePart(f);if(c)return safeFilePart(c);return "investigation-report"}
+function saveAsPdf(){const oldTitle=document.title;document.title=reportBaseName();window.print();setTimeout(()=>{document.title=oldTitle},1000)}
+/* function saveAsExcel(){if(!window.XLSX){alert("The Excel library is still loading. Please wait a moment and try again.");return}const rows=[];document.querySelectorAll("#reportForm [name]").forEach(el=>{const label=el.closest(".field")?.querySelector("label")?.textContent?.trim()||el.name;const value=el.value||"";if(value)rows.push({Section:el.closest(".section")?.querySelector("h2")?.textContent?.trim()||"Report",Field:label,Value:value})});if(!rows.length){alert("Please enter some report details before saving to Excel.");return}const ws=XLSX.utils.json_to_sheet(rows);ws["!cols"]=[{wch:28},{wch:45},{wch:70}];const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,"Investigation Report");XLSX.writeFile(wb,reportBaseName()+".xlsx")} */
+
+function sectionTitle(section){return section.querySelector("h2")?.textContent?.trim()||"Report"}
+function fieldLabel(el){
+ const f=el.closest(".field");
+ if(f){const l=f.querySelector("label");if(l)return l.textContent.trim()}
+ const cell=el.closest("td");
+ if(cell){const table=el.closest("table"),idx=[...cell.parentElement.children].indexOf(cell);const head=table?.querySelector("tr");if(head?.children[idx])return head.children[idx].textContent.trim()}
+ return el.name||"Field";
+}
+function reviewValue(el){
+ let v=el.value||"";
+ if(el.type==="date"&&v)v=fmtDate(v);
+ if(el.type==="time"&&v)v=v;
+ return v.trim();
+}
+function openReview(){
+ const content=document.getElementById("reviewContent");
+ const sections=[...document.querySelectorAll("#reportForm .section")];
+ content.innerHTML=sections.map((section,idx)=>{
+   const fields=[...section.querySelectorAll("[name]")].filter(el=>reviewValue(el)!=="");
+   const body=fields.length?`<div class="review-grid">${fields.map(el=>`<div class="review-item"><div class="review-label">${escapeHtml(fieldLabel(el))}</div><div class="review-value">${escapeHtml(reviewValue(el))}</div></div>`).join("")}</div>`:`<div class="review-empty">No data entered in this section.</div>`;
+   return `<div class="review-section"><div class="review-section-head"><h3>${idx+1}. ${escapeHtml(sectionTitle(section))}</h3><button type="button" class="review-edit" onclick="editReviewSection('${section.id}')">Edit section</button></div>${body}</div>`;
+ }).join("");
+ document.getElementById("reviewOverlay").style.display="block";
+ document.getElementById("reviewOverlay").setAttribute("aria-hidden","false");
+ document.body.style.overflow="hidden";
+ window.scrollTo({top:0,behavior:"instant"});
+}
+function escapeHtml(v){return String(v).replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));}
+function closeReview(){document.getElementById("reviewOverlay").style.display="none";document.getElementById("reviewOverlay").setAttribute("aria-hidden","true");document.body.style.overflow="";}
+function editReviewSection(id){
+ closeReview();
+ const section=document.getElementById(id); if(!section)return;
+ const body=section.querySelector(".section-body"); if(body)body.classList.remove("hidden");
+ section.scrollIntoView({behavior:"smooth",block:"start"});
+ const first=section.querySelector("input,textarea,select"); if(first)setTimeout(()=>first.focus(),450);
+}
+function submitReviewedReport(){closeReview();generateDocx();}
+
 async function generateDocx(){
  try{
   await window.__wordLibrariesPromise;
@@ -224,9 +336,7 @@ async function generateDocx(){
   document.querySelectorAll("#reportForm [name]").forEach(e=>{let v=e.value||"";if(e.type==="date"&&v)v=fmtDate(v);data[e.name]=v});
   const doc=new window.docxtemplater(zip,{paragraphLoop:true,linebreaks:true,delimiters:{start:"{{",end:"}}"}});doc.render(data);
   const blob=doc.getZip().generate({type:"blob",mimeType:"application/vnd.openxmlformats-officedocument.wordprocessingml.document",compression:"DEFLATE"});
-  const safe=x=>x.replace(/[<>:"/\\|?*]+/g,"_").replace(/^_+|_+$/g,"");
-  const f=val("file_no"),c=val("claim_no");
-  const name=f&&c?`${safe(f)}_${safe(c)}.docx`:f?`${safe(f)}.docx`:c?`${safe(c)}.docx`:"investigation-report.docx";
+  const name=reportBaseName()+".docx";
   const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1500);
  }catch(err){console.error(err);alert("Could not generate the Word document.\n\n"+(err.message||err))}
 }
@@ -237,5 +347,6 @@ window.__wordLibrariesPromise=(async()=>{const libs=[
 ["https://unpkg.com/pizzip@3.2.0/dist/pizzip.js","PizZip"]];
 for(const [src,name] of libs){await new Promise((res,rej)=>{let s=document.createElement("script");s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s)});if(!window[name])throw Error("Could not load "+name)}return true})().catch(e=>{console.error(e);throw e});
 </script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </body>
 </html>
